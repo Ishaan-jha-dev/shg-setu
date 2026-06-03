@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Buildings, MapPin, Users, PiggyBank, Search } from "lucide-react";
+import { ArrowLeft, Building, MapPin, Users, PiggyBank, Search } from "lucide-react";
 
 export default async function SHGDirectoryPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const sp = await searchParams;
@@ -61,7 +61,7 @@ export default async function SHGDirectoryPage({ searchParams }: { searchParams:
       <div className="max-w-5xl mx-auto px-4 mt-8">
         {shgs?.length === 0 ? (
           <div className="bg-white rounded-3xl border border-gray-200 border-dashed p-12 text-center text-slate-500">
-            <Buildings className="h-12 w-12 text-slate-300 mx-auto mb-3" />
+            <Building className="h-12 w-12 text-slate-300 mx-auto mb-3" />
             <p>No SHGs found.</p>
           </div>
         ) : (
@@ -74,7 +74,7 @@ export default async function SHGDirectoryPage({ searchParams }: { searchParams:
                 <div key={shg.id} className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 hover:shadow-md transition-shadow flex flex-col">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="h-12 w-12 rounded-full bg-indigo-50 flex items-center justify-center border border-indigo-100 flex-shrink-0">
-                      <Buildings className="h-6 w-6 text-indigo-600" />
+                      <Building className="h-6 w-6 text-indigo-600" />
                     </div>
                     <div>
                       <h3 className="font-bold text-slate-900 leading-tight">{shg.name}</h3>

@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
-  ShieldCheck, Buildings, Users, PiggyBank,
+  ShieldCheck, Building, Users, PiggyBank,
   Landmark, ArrowRight, TrendingUp, AlertTriangle, LogOut
 } from "lucide-react";
 
@@ -63,7 +63,7 @@ export default async function AuthorityDashboardPage() {
         {/* Top Banner */}
         <div className="bg-gradient-to-br from-indigo-900 to-slate-800 rounded-3xl p-8 text-white relative overflow-hidden shadow-lg">
           <div className="absolute right-0 bottom-0 opacity-10 translate-x-1/4 translate-y-1/4">
-            <Buildings className="h-64 w-64" />
+            <Building className="h-64 w-64" />
           </div>
           <div className="relative z-10">
             <h1 className="text-3xl font-bold mb-2">Global Oversight Dashboard</h1>
@@ -76,7 +76,7 @@ export default async function AuthorityDashboardPage() {
         {/* Aggregate KPI Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: "Total SHGs", value: totalSHGs || 0, icon: Buildings, color: "text-indigo-600", bg: "bg-indigo-50" },
+            { label: "Total SHGs", value: totalSHGs || 0, icon: Building, color: "text-indigo-600", bg: "bg-indigo-50" },
             { label: "Total Members", value: totalMembers || 0, icon: Users, color: "text-emerald-600", bg: "bg-emerald-50" },
             { label: "Total Pool Savings", value: `₹${(totalPoolSavings/1000).toFixed(1)}K`, icon: PiggyBank, color: "text-amber-600", bg: "bg-amber-50" },
             { label: "Outstanding Credit", value: `₹${(totalActiveLoansAmount/1000).toFixed(1)}K`, icon: Landmark, color: "text-blue-600", bg: "bg-blue-50" },
@@ -99,7 +99,7 @@ export default async function AuthorityDashboardPage() {
             {/* SHG Directory */}
             <Link href="/authority/shgs" className="group bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all block">
               <div className="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Buildings className="h-5 w-5 text-slate-700" />
+                <Building className="h-5 w-5 text-slate-700" />
               </div>
               <h3 className="font-bold text-slate-800 mb-1">SHG Directory</h3>
               <p className="text-sm text-slate-500 mb-4">View ledgers, meeting compliance, and grading for all registered groups.</p>
