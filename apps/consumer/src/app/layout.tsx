@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "A comprehensive platform for skill development, grant acquisition, and global expansion for SHGs.",
 };
 
+import DemoSwitcher from "@/components/DemoSwitcher";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,8 +29,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-background text-foreground relative">
         {children}
+        <DemoSwitcher />
       </body>
     </html>
   );

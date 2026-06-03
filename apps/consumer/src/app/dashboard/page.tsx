@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import {
   PiggyBank, CreditCard, TrendingUp, BookOpen, Globe, Users, Calendar,
@@ -115,6 +116,13 @@ export default async function DashboardPage() {
   const isJoined = !!member;
   const firstName = profile?.full_name?.split(" ")[0] ?? "Member";
 
+  // Demo Mode Override
+  const cookieStore = await cookies();
+  const demoRole = cookieStore.get("demo_role")?.value;
+  let isLeader = member?.is_leader;
+  if (demoRole === "leader") isLeader = true;
+  if (demoRole === "member") isLeader = false;
+
   let savingsBalance = 0;
   let activeLoansCount = 0;
   let totalOutstanding = 0;
@@ -205,7 +213,7 @@ export default async function DashboardPage() {
                   <div className="flex items-center gap-2 mt-2">
                     <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="text-white/70 text-sm">{shg?.name}</span>
-                    {member?.is_leader && (
+                    {isLeader && (
                       <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#f28c28]/20 text-[#f28c28] border border-[#f28c28]/20">
                         Leader
                       </span>
@@ -275,7 +283,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Leader Tools Grid */}
-        {member?.is_leader && (
+        {isLeader && (
           <div>
             <h2 className="text-xl font-bold text-[#1a1a1a] mb-5 flex items-center gap-2">
               <Shield className="h-5 w-5 text-[#f28c28]" /> Leader Portal
