@@ -23,6 +23,9 @@ export default function ReportsDashboardPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
+  // PAR (Portfolio at Risk) metrics — from Fineract CN
+  const [par, setPar] = useState({ totalOutstanding: 0, overdueOutstanding: 0, parRatio: 0 });
+
   // Calculated ledger account balances
   const [balances, setBalances] = useState({
     cash: 0,
@@ -61,9 +64,41 @@ export default function ReportsDashboardPage() {
 
       setShgId(member.shg_id);
       await fetchLedger(member.shg_id);
+      await fetchPAR(member.shg_id);
     } catch (err) {
       console.error(err);
       setLoading(false);
+    }
+  };
+
+  const fetchPAR = async (shgUuid: string) => {
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      // Get all active loans
+      const { data: loans } = await supabase
+        .from("loans")
+        .select("id, outstanding_principal")
+        .eq("shg_id", shgUuid)
+        .eq("status", "ACTIVE");
+
+      const totalOutstanding = (loans || []).reduce((s: number, l: any) => s + Number(l.outstanding_principal), 0);
+
+      // Get loans that have at least one overdue installment
+      const { data: overdueInst } = await supabase
+        .from("loan_repayments")
+        .select("loan_id, principal_due")
+        .lt("due_date", today)
+        .eq("status", "PENDING");
+
+      const overdueLoadIds = new Set((overdueInst || []).map((i: any) => i.loan_id));
+      const overdueOutstanding = (loans || [])
+        .filter((l: any) => overdueLoadIds.has(l.id))
+        .reduce((s: number, l: any) => s + Number(l.outstanding_principal), 0);
+
+      const parRatio = totalOutstanding > 0 ? Math.round((overdueOutstanding / totalOutstanding) * 100) : 0;
+      setPar({ totalOutstanding, overdueOutstanding, parRatio });
+    } catch (err) {
+      console.error("Error calculating PAR:", err);
     }
   };
 
@@ -299,6 +334,38 @@ export default function ReportsDashboardPage() {
 
         {/* Right Col: Performance Analytics */}
         <div className="space-y-6">
+          {/* PAR — Portfolio at Risk (Fineract CN) */}
+          <div className={`rounded-3xl border p-6 shadow-sm ${
+            par.parRatio > 10 ? "bg-red-50 border-red-200" : par.parRatio > 0 ? "bg-amber-50 border-amber-200" : "bg-white border-gray-100"
+          }`}>
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className={`h-5 w-5 ${par.parRatio > 10 ? "text-red-500" : "text-[#f28c28]"}`} />
+              <h2 className="text-lg font-bold text-gray-900">PAR — Portfolio at Risk</h2>
+            </div>
+            <div className="text-center mb-4">
+              <p className={`text-5xl font-extrabold ${
+                par.parRatio > 10 ? "text-red-600" : par.parRatio > 0 ? "text-amber-600" : "text-emerald-600"
+              }`}>{par.parRatio}%</p>
+              <p className="text-xs text-gray-500 mt-1">Overdue portfolio as % of total</p>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Total Loan Portfolio</span>
+                <span className="font-semibold">₹{par.totalOutstanding.toLocaleString("en-IN")}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Overdue Outstanding</span>
+                <span className="font-semibold text-red-600">₹{par.overdueOutstanding.toLocaleString("en-IN")}</span>
+              </div>
+            </div>
+            <div className={`mt-4 p-2.5 rounded-xl text-[10px] font-bold text-center ${
+              par.parRatio > 10 ? "bg-red-100 text-red-700" : par.parRatio > 0 ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"
+            }`}>
+              {par.parRatio === 0 ? "✅ No overdue loans — excellent health!" : par.parRatio <= 10 ? "⚠️ PAR is within acceptable range" : "🚨 Critical: High overdue risk — take action"}
+            </div>
+          </div>
+
+          {/* Income Statement */}
           <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <BarChart3 className="h-5 w-5 text-[#f28c28]" />
