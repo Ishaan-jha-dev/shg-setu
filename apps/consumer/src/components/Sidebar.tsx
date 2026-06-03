@@ -10,17 +10,17 @@ import {
 
 const SIDEBAR_ITEMS = [
   { name: "Home", href: "/dashboard", icon: Home },
-  { name: "My SHG", href: "/dashboard/shg", icon: Users },
-  { name: "Members", href: "/dashboard/members", icon: Users }, // Using Users again for now
-  { name: "Savings", href: "/dashboard/savings", icon: PiggyBank },
-  { name: "Loans", href: "/dashboard/loans", icon: CreditCard },
-  { name: "Attendance", href: "/dashboard/attendance", icon: CalendarCheck },
-  { name: "Passbook", href: "/dashboard/passbook", icon: FileText },
-  { name: "Reports", href: "/dashboard/reports", icon: BarChart3 },
-  { name: "Training & Skills", href: "/dashboard/skills", icon: GraduationCap },
-  { name: "Grant Opportunities", href: "/dashboard/grants", icon: Award },
-  { name: "Marketplace", href: "/dashboard/marketplace", icon: ShoppingBag },
-  { name: "Resources", href: "/dashboard/resources", icon: BookOpen },
+  { name: "My SHG", href: "/impact", icon: Users },
+  { name: "Members", href: "/members", icon: Users },
+  { name: "Savings", href: "/savings", icon: PiggyBank },
+  { name: "Loans", href: "/loans", icon: CreditCard },
+  { name: "Attendance", href: "/meetings", icon: CalendarCheck },
+  { name: "Passbook", href: "/savings", icon: FileText },
+  { name: "Reports", href: "/reports", icon: BarChart3 },
+  { name: "Training & Skills", href: "/skills", icon: GraduationCap },
+  { name: "Grant Opportunities", href: "/grants", icon: Award },
+  { name: "Marketplace", href: "/global", icon: ShoppingBag },
+  { name: "Resources", href: "/dashboard", icon: BookOpen },
 ];
 
 export default function Sidebar() {
