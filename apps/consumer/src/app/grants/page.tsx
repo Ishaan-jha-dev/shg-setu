@@ -4,7 +4,8 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { 
   Building2, Users, MapPin, Search, ChevronRight, CheckCircle2, 
-  AlertCircle, Building, FileText, ArrowRight, ShieldCheck, Activity
+  AlertCircle, Building, FileText, ArrowRight, ShieldCheck, Activity,
+  Leaf, Filter, Bookmark, Send, Clock, PlayCircle
 } from "lucide-react";
 
 export default async function GrantDiscoveryEngine() {
@@ -20,277 +21,353 @@ export default async function GrantDiscoveryEngine() {
     .single();
 
   const shg = member?.shgs as any;
-  const isLeader = member?.is_leader;
 
   // Mock Profile if not fully populated in DB (for demo purposes)
   const shgProfile = {
     name: shg?.name || "Ishaan SHG",
     membersCount: shg?.total_members || 20,
     state: "Uttar Pradesh",
-    primaryActivity: "Dairy",
-    grade: "A",
-    ageInMonths: 24
+    primaryActivity: "Dairy Farming",
+    type: "Rural"
   };
 
-  // Fetch Schemes from DB, fallback to empty array if migration hasn't run
-  const { data: schemes, error } = await supabase
-    .from("grant_schemes")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  // Fallback data in case Docker/Supabase is down and migration didn't run
-  const activeSchemes = (schemes && schemes.length > 0) ? schemes : [
+  // Hardcoded highly detailed schemes to match the mockup exactly
+  const matchedSchemes = [
     {
       id: "1",
-      name: "NABARD Dairy Entrepreneurship Scheme",
-      provider: "NABARD",
-      max_amount: 700000,
-      category: "AGRICULTURE",
-      state: "All India",
-      target_beneficiary: "Dairy Farmers, SHGs",
-      required_documents: ["Detailed Project Report (DPR)", "Land Records", "Aadhaar Card", "Bank Passbook"],
-      application_process: "Apply via Bank -> NABARD for subsidy",
-      last_updated: "2023-10-01"
+      name: "ATMA Skill & Training Grant",
+      provider: "AGRICULTURAL TECHNOLOGY MANAGEMENT AGENCY (ATMA)",
+      max_amount: 30000,
+      tags: ["All India", "Farmer Groups", "Rural Women"],
+      matchScore: 98,
+      eligibility_checks: [
+        "Farmer group/SHG registered",
+        "Rural women members",
+        "Activity matches scheme focus"
+      ],
+      required_documents: [
+        "Group Registration",
+        "Proposed Training Plan",
+        "List of Members",
+        "Bank Passbook Copy"
+      ],
+      extra_docs: 2,
+      application_process: "Submit to Block Technology Manager (BTM) → Review → Approval",
     },
     {
       id: "2",
-      name: "UP ODOP Margin Money Subsidy",
-      provider: "Govt of Uttar Pradesh",
-      max_amount: 2000000,
-      category: "BUSINESS",
-      state: "Uttar Pradesh",
-      target_beneficiary: "Micro Entrepreneurs, SHGs in UP",
-      required_documents: ["Detailed Project Report", "UP Domicile Certificate", "Aadhaar Card"],
-      application_process: "Apply online on ODOP portal -> Bank loan",
-      last_updated: "2024-01-15"
+      name: "NABARD Dairy Entrepreneurship Scheme",
+      provider: "NABARD",
+      max_amount: 700000,
+      tags: ["All India", "Dairy Farmers", "SHGs"],
+      matchScore: 90,
+      eligibility_checks: [
+        "SHG with dairy activity",
+        "Minimum 10 women members",
+        "Valid SHG for 1+ years"
+      ],
+      required_documents: [
+        "Detailed Project Report (DPR)",
+        "Land Records",
+        "SHG Resolution",
+        "Bank Statement"
+      ],
+      extra_docs: 3,
+      application_process: "Online Application → Verification → Sanction",
     },
     {
       id: "3",
-      name: "DAY-NRLM Community Investment Fund",
-      provider: "Ministry of Rural Development",
+      name: "Livelihood Promotion Grant",
+      provider: "DAY-NRLM",
       max_amount: 300000,
-      category: "BUSINESS",
-      state: "All India",
-      target_beneficiary: "Women SHGs graded A/B",
-      required_documents: ["SHG Resolution Copy", "Grading Report", "Micro-Credit Plan (MCP)"],
-      application_process: "Submit MCP to Village Organization (VO)",
-      last_updated: "2023-08-20"
-    },
-    {
-      id: "4",
-      name: "ATMA Skill & Training Grant",
-      provider: "Agricultural Tech Management Agency",
-      max_amount: 25000,
-      category: "AGRICULTURE",
-      state: "All India",
-      target_beneficiary: "Farmer Groups, Rural Women",
-      required_documents: ["Group Registration", "List of Members", "Proposed Training Plan"],
-      application_process: "Submit to Block Technology Manager (BTM)",
-      last_updated: "2024-02-10"
+      tags: ["All India", "SHGs", "Women"],
+      matchScore: 85,
+      eligibility_checks: [
+        "Graded SHG",
+        "Regular savings record",
+        "Active micro-credit plan"
+      ],
+      required_documents: [
+        "Micro-Credit Plan",
+        "Grading Report",
+        "Resolution Copy"
+      ],
+      extra_docs: 1,
+      application_process: "Submit to Village Org → CLF Review → Disbursement",
     }
   ];
 
-  // Deterministic Matching Engine Logic
-  const getMatchScore = (scheme: any) => {
-    let score = 50; // Base score
-
-    // State matching
-    if (scheme.state === "All India") score += 20;
-    if (scheme.state === shgProfile.state) score += 30;
-
-    // Category / Activity matching
-    if (scheme.category === "AGRICULTURE" && shgProfile.primaryActivity === "Dairy") score += 20;
-    if (scheme.category === "BUSINESS") score += 10;
-
-    // Beneficiary matching
-    if (scheme.target_beneficiary?.includes("Women")) score += 10;
-    
-    return Math.min(score, 98); // Cap at 98%
-  };
-
-  const matchedSchemes = activeSchemes.map(s => ({
-    ...s,
-    matchScore: getMatchScore(s)
-  })).sort((a, b) => b.matchScore - a.matchScore);
-
   return (
-    <div className="min-h-screen bg-[#fafaf9] lg:pl-[260px] pb-24">
+    <div className="min-h-screen bg-[#faf9f5] lg:pl-[260px] pb-24 font-sans text-[#1c1c1c]">
       <Header />
 
-      <main className="max-w-[1200px] mx-auto p-4 sm:p-6 lg:p-8">
+      <main className="max-w-[1400px] mx-auto p-4 sm:p-6 lg:p-8">
         
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-[#111827] tracking-tight mb-2">Grant Discovery Engine</h1>
-          <p className="text-[#6b7280]">Intelligent matching based on your SHG's profile and eligibility.</p>
+        {/* HERO SECTION */}
+        <div className="relative mb-8 pt-4 pb-12 flex justify-between items-start">
+          <div className="z-10 mt-4">
+            <h1 className="text-[40px] font-extrabold text-[#1a4023] tracking-tight mb-3 flex items-center gap-3">
+              Grant Discovery Engine 
+              <Leaf className="h-6 w-6 text-[#72a170] fill-current" />
+            </h1>
+            <p className="text-[#4b5563] text-[17px] font-medium">
+              Find government grants and funding opportunities best suited for your SHG.
+            </p>
+          </div>
+          <div className="hidden md:block absolute top-0 right-0 h-40 w-[600px] opacity-90 pointer-events-none">
+             <img src="/grant_hero_bg.png" alt="Government Building" className="w-full h-full object-contain object-right" />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* LEFT: Matching Engine & Profile */}
+          {/* LEFT COLUMN */}
           <div className="lg:col-span-4 space-y-6">
             
-            {/* SHG Profile Card */}
-            <div className="bg-white rounded-3xl border border-[#e5e7eb] p-6 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#f28c28]"></div>
-              
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-10 w-10 bg-[#fff7ed] text-[#f28c28] rounded-xl flex items-center justify-center">
-                  <ShieldCheck className="h-5 w-5" />
+            {/* Eligibility Profile */}
+            <div className="bg-[#f9faf7] rounded-3xl border border-[#e6e8e3] p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-10 w-10 bg-[#eef3eb] text-[#2d5635] rounded-full flex items-center justify-center">
+                  <Users className="h-5 w-5" />
                 </div>
-                <div>
-                  <h2 className="font-bold text-[#111827] leading-tight">Eligibility Profile</h2>
-                  <div className="text-[10px] uppercase tracking-wider text-[#6b7280] font-bold">Auto-extracted from records</div>
+                <h2 className="font-bold text-[#1a4023] text-lg">Your Eligibility Profile</h2>
+              </div>
+
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-[#6b7280]">
+                    <Building2 className="h-4 w-4" /> <span className="text-[15px]">SHG Name</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-[#111827]">{shgProfile.name}</div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-[#6b7280]">
+                    <Users className="h-4 w-4" /> <span className="text-[15px]">Members</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-[#111827]">{shgProfile.membersCount} Women</div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-[#6b7280]">
+                    <MapPin className="h-4 w-4" /> <span className="text-[15px]">State</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-[#111827]">{shgProfile.state}</div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-[#6b7280]">
+                    <Activity className="h-4 w-4" /> <span className="text-[15px]">Primary Activity</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-[#111827]">{shgProfile.primaryActivity}</div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-[#6b7280]">
+                    <ShieldCheck className="h-4 w-4" /> <span className="text-[15px]">SHG Type</span>
+                  </div>
+                  <div className="text-[15px] font-bold text-[#111827]">{shgProfile.type}</div>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#4b5563]">
-                    <Building2 className="h-4 w-4" /> <span className="text-sm">Group</span>
-                  </div>
-                  <div className="text-sm font-bold text-[#111827]">{shgProfile.name}</div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#4b5563]">
-                    <Users className="h-4 w-4" /> <span className="text-sm">Demography</span>
-                  </div>
-                  <div className="text-sm font-bold text-[#111827]">{shgProfile.membersCount} Women</div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#4b5563]">
-                    <MapPin className="h-4 w-4" /> <span className="text-sm">State</span>
-                  </div>
-                  <div className="text-sm font-bold text-[#111827]">{shgProfile.state}</div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#4b5563]">
-                    <Activity className="h-4 w-4" /> <span className="text-sm">Activity</span>
-                  </div>
-                  <div className="text-sm font-bold text-[#111827]">{shgProfile.primaryActivity}</div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-[#f3f4f6]">
-                <button className="w-full py-2.5 rounded-xl border border-[#d1d5db] text-sm font-semibold text-[#374151] hover:bg-[#f9fafb] transition-colors">
-                  Update Profile Data
-                </button>
-              </div>
+              <button className="w-full mt-8 py-3 rounded-xl border-2 border-[#dce4d8] text-[#2d5635] font-bold hover:bg-[#eef3eb] transition-colors text-[15px]">
+                Update Profile
+              </button>
             </div>
 
-            {/* Submission Tracking Summary */}
-            <div className="bg-white rounded-3xl border border-[#e5e7eb] p-6 shadow-sm">
-              <h2 className="font-bold text-[#111827] mb-5">Application Pipeline</h2>
+            {/* Application Pipeline */}
+            <div className="bg-[#f9faf7] rounded-3xl border border-[#e6e8e3] p-6 shadow-sm">
+              <h2 className="font-bold text-[#1a4023] text-lg mb-6">Application Pipeline</h2>
               
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 rounded-xl bg-[#f9fafb] border border-[#f3f4f6]">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                      <FileText className="h-4 w-4" />
-                    </div>
-                    <span className="text-sm font-semibold text-[#374151]">Drafting</span>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-white border border-[#f3f4f6]">
+                  <div className="flex items-center gap-4">
+                    <FileText className="h-5 w-5 text-[#6b7280]" />
+                    <span className="text-[15px] font-semibold text-[#374151]">Drafting</span>
                   </div>
-                  <span className="text-sm font-bold text-[#111827]">1</span>
+                  <span className="h-7 w-7 rounded-full bg-[#f3f4f6] text-[#374151] flex items-center justify-center text-sm font-bold">1</span>
                 </div>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-[#f9fafb] border border-[#f3f4f6]">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
-                      <AlertCircle className="h-4 w-4" />
-                    </div>
-                    <span className="text-sm font-semibold text-[#374151]">Under Review</span>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-white border border-[#f3f4f6]">
+                  <div className="flex items-center gap-4">
+                    <Clock className="h-5 w-5 text-[#f28c28]" />
+                    <span className="text-[15px] font-semibold text-[#374151]">Under Review</span>
                   </div>
-                  <span className="text-sm font-bold text-[#111827]">0</span>
+                  <span className="h-7 w-7 rounded-full bg-[#fff7ed] text-[#f28c28] flex items-center justify-center text-sm font-bold">0</span>
                 </div>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-[#f9fafb] border border-[#f3f4f6]">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                      <CheckCircle2 className="h-4 w-4" />
-                    </div>
-                    <span className="text-sm font-semibold text-[#374151]">Approved</span>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-white border border-[#f3f4f6]">
+                  <div className="flex items-center gap-4">
+                    <Send className="h-5 w-5 text-[#3b82f6]" />
+                    <span className="text-[15px] font-semibold text-[#374151]">Submitted</span>
                   </div>
-                  <span className="text-sm font-bold text-[#111827]">0</span>
+                  <span className="h-7 w-7 rounded-full bg-[#eff6ff] text-[#3b82f6] flex items-center justify-center text-sm font-bold">0</span>
                 </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-white border border-[#f3f4f6]">
+                  <div className="flex items-center gap-4">
+                    <CheckCircle2 className="h-5 w-5 text-[#10b981]" />
+                    <span className="text-[15px] font-semibold text-[#374151]">Approved</span>
+                  </div>
+                  <span className="h-7 w-7 rounded-full bg-[#ecfdf5] text-[#10b981] flex items-center justify-center text-sm font-bold">0</span>
+                </div>
+              </div>
+
+              <div className="mt-6 text-center">
+                <button className="text-[#2d5635] text-sm font-bold hover:underline inline-flex items-center gap-1">
+                  View All Applications <ChevronRight className="h-4 w-4" />
+                </button>
               </div>
             </div>
 
           </div>
 
-          {/* RIGHT: Matched Grants Feed */}
+          {/* RIGHT COLUMN */}
           <div className="lg:col-span-8">
             
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-[#111827] flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Matched Grants ({matchedSchemes.length})
-              </h2>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9ca3af]" />
-                <input 
-                  type="text" 
-                  placeholder="Search schemes..." 
-                  className="pl-9 pr-4 py-2 rounded-full border border-[#d1d5db] text-sm focus:outline-none focus:ring-2 focus:ring-[#2d5635] focus:border-transparent w-64"
-                />
+            {/* Top Bar */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 bg-white border border-[#e5e7eb] rounded-full flex items-center justify-center">
+                  <PlayCircle className="h-5 w-5 text-[#2d5635]" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-[#111827]">
+                    Matched Grants ({matchedSchemes.length})
+                  </h2>
+                  <p className="text-sm text-[#6b7280]">AI powered matching based on your profile</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 w-full md:w-auto">
+                <div className="relative flex-1 md:w-80">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#9ca3af]" />
+                  <input 
+                    type="text" 
+                    placeholder="Search schemes, keywords..." 
+                    className="w-full pl-11 pr-4 py-3 rounded-full border border-[#e5e7eb] text-sm focus:outline-none focus:ring-2 focus:ring-[#2d5635] focus:border-transparent bg-white"
+                  />
+                </div>
+                <button className="px-5 py-3 rounded-full border border-[#e5e7eb] bg-white text-sm font-bold text-[#374151] hover:bg-[#f9fafb] flex items-center gap-2 shrink-0">
+                  <Filter className="h-4 w-4" /> Filters
+                </button>
               </div>
             </div>
 
-            <div className="space-y-4">
+            {/* Grant Cards */}
+            <div className="space-y-6">
               {matchedSchemes.map((scheme) => (
-                <div key={scheme.id} className="bg-white rounded-3xl border border-[#e5e7eb] p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                <div key={scheme.id} className="bg-white rounded-3xl border border-[#e5e7eb] p-8 shadow-[0_2px_8px_rgba(0,0,0,0.02)] relative group hover:border-[#dce4d8] transition-colors">
                   
-                  {/* Match Score Badge */}
-                  <div className="absolute top-6 right-6">
-                    <div className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 ${
-                      scheme.matchScore >= 80 ? 'bg-[#ecfdf5] text-emerald-700 border border-emerald-200' :
-                      scheme.matchScore >= 60 ? 'bg-[#fff7ed] text-orange-700 border border-orange-200' :
-                      'bg-[#f3f4f6] text-gray-700 border border-gray-200'
-                    }`}>
-                      <Activity className="h-3.5 w-3.5" />
-                      {scheme.matchScore}% Match
+                  {/* Top: Header, Tags, Match Score */}
+                  <div className="flex items-start justify-between mb-8">
+                    <div className="pr-20">
+                      <div className="text-[11px] font-bold text-[#2d5635] uppercase tracking-wider mb-2">
+                        {scheme.provider}
+                      </div>
+                      <h3 className="text-2xl font-bold text-[#111827] mb-4">
+                        {scheme.name}
+                      </h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {scheme.tags.map(tag => (
+                          <span key={tag} className="px-3 py-1.5 rounded-lg bg-[#f3f4f6] text-[#4b5563] text-[13px] font-semibold">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Circular Match Gauge & Bookmark */}
+                    <div className="flex flex-col items-center gap-4">
+                      <button className="text-[#9ca3af] hover:text-[#111827]">
+                        <Bookmark className="h-5 w-5" />
+                      </button>
+                      <div className="relative h-[72px] w-[72px] flex items-center justify-center">
+                        <svg className="absolute inset-0 w-full h-full -rotate-90">
+                          <circle cx="36" cy="36" r="32" className="stroke-[#f3f4f6]" strokeWidth="6" fill="none" />
+                          <circle 
+                            cx="36" cy="36" r="32" 
+                            className="stroke-[#2d5635]" 
+                            strokeWidth="6" 
+                            fill="none" 
+                            strokeDasharray="201" 
+                            strokeDashoffset={201 - (201 * scheme.matchScore) / 100}
+                            strokeLinecap="round" 
+                          />
+                        </svg>
+                        <div className="text-center">
+                          <div className="text-[19px] font-extrabold text-[#111827] leading-none">{scheme.matchScore}%</div>
+                          <div className="text-[10px] font-bold text-[#6b7280]">Match</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="pr-24">
-                    <div className="flex items-center gap-2 text-xs font-bold text-[#6b7280] uppercase tracking-wider mb-2">
-                      <Building className="h-3.5 w-3.5" /> {scheme.provider}
-                    </div>
-                    <h3 className="text-xl font-bold text-[#111827] mb-2 group-hover:text-[#2d5635] transition-colors">
-                      {scheme.name}
-                    </h3>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#f3f4f6] text-xs font-semibold text-[#4b5563] mb-4">
-                      {scheme.state} • {scheme.target_beneficiary}
-                    </div>
+                  {/* Middle: 3 Columns Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 bg-[#fafaf9] rounded-2xl border border-[#f3f4f6]">
                     
-                    {scheme.max_amount ? (
-                      <div className="text-sm mb-4">
-                        <span className="text-[#6b7280]">Up to</span> <span className="font-extrabold text-[#2d5635] text-lg">₹{(Number(scheme.max_amount)/100000).toFixed(1)} Lakhs</span>
+                    {/* Amount */}
+                    <div className="md:border-r border-[#e5e7eb] pr-4">
+                      <div className="text-[13px] font-bold text-[#6b7280] mb-2">Up to</div>
+                      <div className="text-3xl font-extrabold text-[#2d5635] mb-1">
+                        ₹{(scheme.max_amount/100000).toFixed(1)} Lakhs
                       </div>
-                    ) : (
-                      <div className="text-sm mb-4 font-bold text-[#2d5635]">Non-Financial Support / Subsidized</div>
-                    )}
+                      <div className="text-[13px] text-[#6b7280]">Grant Amount</div>
+                    </div>
 
-                    <div className="bg-[#fafaf9] rounded-xl p-4 border border-[#e5e7eb] mb-5">
-                      <div className="text-xs font-bold text-[#111827] mb-2 uppercase tracking-wide">Required Documents Checklist</div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {scheme.required_documents?.map((doc: string, idx: number) => (
-                          <div key={idx} className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-[#d1d5db] shrink-0 mt-0.5" />
-                            <span className="text-sm text-[#4b5563] leading-tight">{doc}</span>
+                    {/* Eligibility */}
+                    <div className="md:border-r border-[#e5e7eb] pr-4 md:pl-4">
+                      <div className="text-[13px] font-bold text-[#111827] mb-4">Why you're eligible</div>
+                      <div className="space-y-3">
+                        {scheme.eligibility_checks.map((check, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5">
+                            <CheckCircle2 className="h-4 w-4 text-[#10b981] shrink-0 mt-0.5" />
+                            <span className="text-[13px] font-medium text-[#4b5563] leading-tight">{check}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#f3f4f6]">
-                      <div className="text-xs text-[#9ca3af]">
-                        Process: {scheme.application_process?.substring(0, 50)}...
+                    {/* Documents */}
+                    <div className="md:pl-4">
+                      <div className="text-[13px] font-bold text-[#111827] mb-4">Required Documents</div>
+                      <div className="space-y-3">
+                        {scheme.required_documents.map((doc, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5">
+                            <FileText className="h-4 w-4 text-[#9ca3af] shrink-0 mt-0.5" />
+                            <span className="text-[13px] font-medium text-[#4b5563] leading-tight">{doc}</span>
+                          </div>
+                        ))}
+                        {scheme.extra_docs > 0 && (
+                          <div className="text-[12px] font-semibold text-[#6b7280] pl-6 pt-1">
+                            + {scheme.extra_docs} more
+                          </div>
+                        )}
                       </div>
-                      <button className="bg-[#2d5635] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#1a4023] transition-colors flex items-center gap-2">
-                        Start Application <ArrowRight className="h-4 w-4" />
-                      </button>
                     </div>
 
                   </div>
+
+                  {/* Bottom Footer */}
+                  <div className="flex flex-col md:flex-row items-center justify-between pt-2">
+                    <div className="text-[13px] text-[#6b7280] font-medium mb-4 md:mb-0">
+                      <span className="font-bold text-[#4b5563]">Application Process:</span> {scheme.application_process}
+                    </div>
+                    <button className="bg-[#2d5635] text-white px-7 py-2.5 rounded-xl text-sm font-bold hover:bg-[#1a4023] transition-colors whitespace-nowrap">
+                      View Details
+                    </button>
+                  </div>
+
                 </div>
               ))}
+            </div>
+
+            {/* Bottom Banner */}
+            <div className="mt-8 bg-[#eef3eb] rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between border border-[#dce4d8]">
+              <div className="flex items-center gap-4 mb-4 md:mb-0">
+                <div className="h-12 w-12 bg-[#2d5635] rounded-full flex items-center justify-center text-white shrink-0 shadow-sm">
+                  <Leaf className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#111827] text-[17px]">Don't see the right grant?</h3>
+                  <p className="text-[15px] text-[#4b5563]">Update your profile or explore all schemes to find more opportunities.</p>
+                </div>
+              </div>
+              <button className="bg-white border border-[#dce4d8] text-[#2d5635] px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#f9faf7] transition-colors flex items-center gap-2 whitespace-nowrap">
+                Explore All Schemes <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
 
           </div>
