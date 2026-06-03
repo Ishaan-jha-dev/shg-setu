@@ -5,7 +5,8 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { 
   Users, MapPin, Calendar, Clock, IndianRupee,
-  ChevronRight, Activity, TrendingUp, HandCoins, CheckCircle2, Circle
+  ChevronRight, Activity, TrendingUp, HandCoins, CheckCircle2, Circle,
+  BookOpen, Wallet, BarChart2, PiggyBank, Landmark
 } from "lucide-react";
 
 export default async function DashboardPage() {
