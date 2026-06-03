@@ -1,0 +1,1439 @@
+﻿===== Setu_SHG_OS_PRD.docx =====
+SETU SHG OS
+India's Digital Operating System for Self-Help Groups
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Version
+1.0
+Date
+June 2025
+Classification
+Confidential
+Document Type
+PRD
+Prepared for: Investors | Incubators | Government Grants | Hackathons
+1. EXECUTIVE SUMMARY & PRODUCT VISION
+Setu SHG OS is India's first and most comprehensive digital operating system designed exclusively for the 8.5+ million Self-Help Groups (SHGs) across India, collectively representing over 90 million women members. The platform unifies five critical pillars — Financial Management, Commerce & Marketplace, Learning & Skill Development, Governance & Compliance, and AI-Powered Business Intelligence — into a single, offline-capable, multilingual mobile-first platform.
+The core vision is to eliminate the systemic barriers that prevent India's SHG women from accessing formal financial systems, national markets, and government-backed opportunities. By digitising the SHG ecosystem end-to-end, Setu SHG OS creates a verifiable financial identity for every member, enabling formal credit access, and builds economic bridges between rural producers and urban consumers.
+1.1 Vision Statement
+"To empower every SHG woman in India with digital-first tools that transform grassroots entrepreneurship into scalable, credit-worthy, market-connected businesses — building a ₹5 Lakh Crore SHG economy by 2030."
+1.2 Mission Statement
+Provide a single unified platform that manages SHG finances, facilitates loans, opens marketplace access, delivers skills training, connects to government schemes, and uses AI to guide every member toward sustainable livelihood outcomes.
+1.3 Product Pillars
+Pillar
+Description
+Financial OS
+Complete digital ledger: savings, loans, repayments, passbooks, credit scoring
+Commerce OS
+B2C and B2B marketplace for SHG products with logistics and payments
+Learning OS
+Multilingual academy for entrepreneurship, financial literacy, digital skills
+Governance OS
+Attendance, meeting minutes, leadership management, compliance tracking
+AI Copilot
+Business planning, pricing intelligence, scheme matching, voice assistant
+1.4 Strategic Positioning
+Setu SHG OS positions itself as the "Shopify + Zoho + Coursera" for India's SHG ecosystem — while Shopify powers global merchants, Zoho powers businesses, and Coursera powers learners, Setu SHG OS powers the entire SHG economy end-to-end within a single platform specifically designed for low-literacy, low-connectivity, vernacular-language rural users.
+2. PROBLEM STATEMENT
+India's 8.5 million SHGs represent one of the world's most powerful grassroots economic networks. Yet, they remain largely disconnected from formal financial systems, digital markets, and government opportunities due to multiple systemic failures:
+2.1 Financial Challenges
+Problem Area
+Current Reality & Impact
+Bookkeeping
+95% of SHGs maintain paper registers that are error-prone, easily lost, and cannot be audited. Leads to disputes, loss of funds, and inability to prove creditworthiness.
+Loan Access
+Only 18% of SHGs have accessed formal bank credit. Banks lack digitised repayment histories to assess creditworthiness of groups.
+Repayment Tracking
+Internal loan repayments among members are tracked manually, leading to defaults, group conflicts, and fund mismanagement.
+Savings Management
+Member savings pooling lacks transparency. Leaders hold disproportionate control, creating trust deficits within groups.
+No Credit Score
+SHGs have no standardised creditworthiness score despite years of consistent saving and internal lending history.
+2.2 Market Access Challenges
+Problem Area
+Current Reality & Impact
+Middlemen Dependency
+70% of SHG products are sold through exploitative intermediaries who capture 40–60% of profit margin, severely limiting SHG income.
+Limited Customer Reach
+SHG products rarely transcend their village or district. No digital storefront, no national discoverability, no D2C capability.
+Lack of Branding
+SHG products have no packaging standards, brand identity, or quality certifications that urban buyers expect, reducing premium pricing potential.
+No Inventory Systems
+SHGs cannot track stock, predict demand, or manage bulk orders — limiting ability to fulfill B2B procurement opportunities from corporates and governments.
+Logistics Gap
+No integrated logistics solution. SHGs cannot ship nationally without complex manual arrangements with multiple courier partners.
+2.3 Governance & Transparency Challenges
+Group attendance is tracked on paper — no historical record, no accountability mechanism
+Leadership conflicts arise from non-transparent decision-making and fund handling
+Meeting minutes are handwritten and inaccessible to external stakeholders
+No compliance tracking for NABARD, government, or NGO reporting requirements
+No standardised onboarding process for new members
+2.4 Skills & Capacity Building Challenges
+Low financial literacy: most SHG members cannot read a balance sheet or understand interest calculations
+Limited digital literacy: inability to use smartphones for financial transactions
+No access to entrepreneurship education in regional languages
+Training programs by NGOs and government are one-time, non-persistent, and not digitally accessible
+2.5 Government Scheme Access Challenges
+India has 200+ government schemes for SHGs at central and state levels. Over 60% of eligible SHGs never apply due to awareness gaps
+Complex documentation requirements create barriers — Aadhaar, PAN, bank account linkages, caste certificates, land records
+No single platform helps SHGs check eligibility, prepare documents, and track application status
+Language barriers prevent non-Hindi, non-English speaking members from accessing online scheme portals
+3. TARGET USERS & PERSONAS
+Setu SHG OS serves a layered ecosystem of primary users who directly interact with the platform and secondary stakeholders who derive institutional value from aggregated platform data and tools.
+3.1 Primary Users
+Persona 1: Savitri — The SHG Member
+Attribute
+Details
+Age
+28–45 years
+Location
+Rural / Semi-urban India (UP, Bihar, MP, Odisha, Tamil Nadu)
+Education
+Class 5–10, limited English literacy
+Phone
+Android smartphone (entry-level, 2G/4G)
+Language
+Hindi, Tamil, Telugu, Bengali, Odia, Marathi
+Income
+₹3,000–₹12,000/month household
+Pain Points
+Cannot track group savings, no loan access, sells via middlemen, no business skills
+Goals
+Save consistently, get a loan for her agarbatti business, sell online, learn digital payments
+Success Metrics
+Monthly savings target met, loan approved within 2 weeks, first online order shipped
+Persona 2: Rekha — The SHG President / Secretary
+Attribute
+Details
+Role
+Group leader managing 10–20 SHG members
+Responsibilities
+Record keeping, loan approvals, meeting scheduling, bank coordination
+Challenges
+Manual registers, member disputes, loan default tracking, reporting to NGO/bank
+Goals
+Digital passbooks, automated reminders, instant reports for auditors
+Feature Priority
+Dashboard with group health score, automated attendance, loan ledger, export to Excel/PDF
+3.2 Secondary Users
+Stakeholder
+Role
+Platform Need
+Commercial Banks (SBI, UCO, Bandhan)
+Credit disbursement partners
+SHG Credit Score API, loan history export, automated disbursement trigger
+MFIs (Microfinance Institutions)
+Loan partners for nano-credit
+Portfolio monitoring, repayment dashboards, risk flags
+NGOs & SHG Federations
+Implementation & monitoring
+Multi-SHG dashboard, impact metrics, attendance reports, program tracking
+Government (MoRD, DAY-NRLM, State NRLMs)
+Policy & funding bodies
+District-level analytics, scheme uptake data, SHG formation compliance
+Corporate Buyers
+B2B procurement
+Verified product catalog, bulk order placement, quality certification status
+Individual Consumers
+B2C marketplace
+Searchable SHG product store, secure checkout, delivery tracking
+4. PRODUCT MODULES — DETAILED SPECIFICATIONS
+Setu SHG OS comprises 7 tightly integrated core modules. Each module functions independently but is designed to share data, users, and workflows with all other modules through a unified API layer.
+Module 1: SHG Management & Governance
+Core Purpose: Digitise the entire SHG operational lifecycle from formation to compliance reporting
+4.1.1 Member Onboarding
+Digital KYC: Aadhaar OTP-based member verification integrated with UIDAI
+Profile creation: Name, photo, Aadhaar, bank account, phone, occupation, address
+Group creation: SHG name, formation date, federation linkage, geographic tagging
+Role assignment: President, Secretary, Treasurer, Member — with permission levels
+Offline onboarding: Form stored locally, synced when connectivity is available
+QR Code ID cards: Digital identity card with SHG details and member QR
+4.1.2 Attendance Management
+One-tap meeting attendance with timestamp and GPS tagging
+Automated SMS/WhatsApp reminders for upcoming meetings (24 hours and 2 hours prior)
+Attendance history: Monthly, quarterly, annual attendance percentage per member
+Meeting minutes: Voice-to-text transcription of meeting discussions in regional languages
+Agenda templates: Pre-built meeting agenda formats for regular and special meetings
+Resolution tracking: Action items from meetings tracked with owner and due date
+4.1.3 Savings & Ledger Management
+Individual savings contribution recording with date, amount, mode (cash/UPI)
+Group corpus tracking: Total savings pool with member-wise breakdown
+Digital passbook: Auto-generated statement for each member (monthly/annual)
+Savings goal setting: Members can set personal savings targets with progress tracking
+Overdue alert system: Automated notification for members who miss savings deadlines
+Group health indicators: Savings consistency score, average contribution, trend charts
+4.1.4 Compliance & Reporting
+NABARD-format reports: Auto-generated SHG grading reports as per NABARD Category A/B/C/D
+Bank linkage reports: CIF (Credit Information Format) for SHG-Bank Linkage Programme
+State NRLM export: Data export in state-specific NRLM/SRLM portal formats
+Audit trail: Every transaction, change, and login is immutably logged
+Module 2: Financial Services
+Core Purpose: Enable formal and informal lending within and beyond the SHG with full digital transparency
+4.2.1 Internal Loan Management
+Loan application: Member submits digital loan request with purpose, amount, repayment plan
+Group voting: Loan approval by quorum — majority vote tracked digitally with timestamps
+Loan agreement: Auto-generated digital loan agreement signed via OTP
+Repayment schedule: EMI calendar generated automatically with interest calculation
+Repayment tracking: Payment recorded, overdue flags, automated reminders
+NPA flagging: Non-performing loan detection and escalation to group president
+4.2.2 Bank Linkage & External Loans
+Bank SHG Linkage Phase I/II/III: Digital application preparation for all three phases
+MUDRA Loan: Digital application support for Shishu (₹50K), Kishore (₹5L), Tarun (₹10L)
+Credit score calculation: Proprietary SHG Credit Score (SCS) based on 18 parameters
+Loan offer matching: Bank loan products matched to SHG's credit score tier
+Account Aggregator: Consented data sharing with AA framework for bank underwriting
+4.2.3 SHG Credit Score (SCS) Framework
+Parameter
+Weight
+Savings Regularity (12-month consistency)
+20%
+Loan Repayment Rate (internal loans)
+20%
+Meeting Attendance Rate
+10%
+Book-Keeping Quality (digital entries)
+10%
+Group Age & Stability
+10%
+Member Count & Retention
+10%
+Bank Linkage Status
+10%
+Government Scheme Utilisation
+5%
+Marketplace Activity & Revenue
+5%
+4.2.4 UPI & Payments Integration
+UPI collect request: Secretary can send UPI payment requests to all members simultaneously
+Payment confirmation: Auto-reconciliation of UPI payments to savings/loan ledger
+Razorpay/Cashfree integration: Payment gateway for marketplace transactions
+QR code payments: Physical QR code for meeting-time cash collection with digital receipt
+Module 3: Learning Academy
+Core Purpose: Build the skills, knowledge, and digital confidence of every SHG member
+4.3.1 Course Library Architecture
+Course Category
+Topics Covered
+Financial Literacy
+Savings principles, interest calculation, loan management, insurance, tax basics
+Digital Literacy
+Smartphone use, UPI/BHIM, WhatsApp Business, online banking, OTP safety
+Entrepreneurship
+Business model canvas, pricing, profit & loss, market research, competition analysis
+Marketing & Sales
+Product photography, social media marketing, WhatsApp marketing, branding basics
+Government Schemes
+PMMY, PMEGP, PM SVANidhi, DAY-NRLM, state-specific schemes — eligibility & application
+Product Quality & Packaging
+Food safety (FSSAI), labeling requirements, packaging design, quality standards
+E-Commerce & Marketplace
+How to list products, manage orders, handle returns, customer service
+Leadership & Governance
+SHG management best practices, conflict resolution, meeting facilitation, documentation
+4.3.2 Content Format & Delivery
+Short-form videos: 3–7 minute micro-learning videos with regional language dubbing
+Audio lessons: MP3 format for low-connectivity or feature phone users
+Illustrated PDF guides: Visual step-by-step guides for zero-literacy learners
+Interactive quizzes: MCQ assessments after each module with instant feedback
+Certification: Digital certificates issued upon course completion (shareable on WhatsApp)
+Offline download: Courses downloadable for offline consumption — critical for rural users
+4.3.3 Language Support
+Launch languages: Hindi, Tamil, Telugu, Kannada, Marathi, Bengali, Odia, Gujarati
+Voice narration: All videos have native-speaker narration in each language
+Text localisation: Full UI localisation — no reliance on translation APIs
+Roadmap: 14 additional Indian languages by Year 3
+4.3.4 Gamification & Progress
+Learning streaks: Daily login and course completion streaks with visual badges
+Leaderboards: District-level leaderboards for most courses completed
+XP points: Experience points redeemable for premium content or loan application priority
+Progress tracking: Dashboard shows completed, in-progress, and recommended courses
+Module 4: Marketplace & Commerce
+Core Purpose: Enable SHGs to sell products directly to consumers and businesses, eliminating middlemen
+4.4.1 Product Listing & Catalog Management
+Product creation: Title, description, category, photos (up to 5), price, stock quantity
+AI-assisted pricing: Price recommendation based on material cost, market comparison, regional demand
+Product categories: Handicrafts, textiles, food products, agarbatti, papad, pickles, organic produce, handloom, pottery, jewellery
+Quality badges: FSSAI certified, Organic certified, GI Tag, Khadi Mark, Fair Trade — displayed on listings
+Story-selling: SHG product story feature — member faces, village name, crafting process narrative
+4.4.2 B2C Storefront
+SHG group storefront: Each SHG gets a shareable URL (setu.in/shg/savitri-group-varanasi)
+WhatsApp catalog integration: Automatic WhatsApp Business catalog sync
+Search & discovery: Nationwide buyer search by product, region, certification, price range
+Product reviews: Verified buyer reviews with photo submissions
+Wishlist & repeat order: Buyer can follow SHG stores and repeat-order with one click
+4.4.3 B2B Procurement Portal
+Corporate buyer registration: Verified corporate account with GST, bulk ordering capability
+Tender board: Government/corporate tenders for SHG products with application workflow
+Bulk quote request: Buyers can request quotes from multiple SHGs simultaneously
+Verified supplier profiles: SHG groups rated on quality, delivery time, capacity
+Export facilitation: Connects premium SHG products with export aggregators (EEPC, APEDA)
+4.4.4 Order Management & Logistics
+Order dashboard: Real-time order status for buyer and SHG seller
+Integrated logistics: Delhivery, Ecom Express, DTDC, India Post APIs — auto-rate comparison
+Label printing: Auto-generated shipping label with SHG branding
+Return management: Automated return initiation, quality dispute resolution workflow
+GST invoicing: Auto-generated GST invoice for all transactions (Composition/Regular scheme)
+COD support: Cash-on-delivery option for rural buyers with reconciliation workflow
+Module 5: AI Business Copilot
+Core Purpose: Democratise business intelligence for low-literacy rural women entrepreneurs
+4.5.1 Core AI Capabilities
+AI Feature
+Description & User Value
+Voice Assistant (Sakhi AI)
+Responds to voice queries in regional languages: 'Sakhi, what is my loan balance?' or 'Sakhi, help me price my sarees'
+Scheme Discovery Engine
+Analyses SHG profile, location, income, and activity to match with eligible government schemes. Auto-fills application forms.
+Product Pricing Engine
+Suggests optimal price based on: raw material cost input, competitor prices, platform sales data, demand trends, seasonal factors
+Business Plan Generator
+Creates a 1-page business plan for any SHG product idea — includes market size, pricing, costs, revenue projection, marketing plan
+Sales Forecasting
+Predicts next month's sales based on historical data, seasonal trends, upcoming festivals, and regional demand patterns
+Credit Readiness Advisor
+Tells SHG what actions to take to improve credit score: 'Attend 2 more meetings this month to hit 90% attendance threshold'
+Document Assistant
+Reads and explains legal documents, scheme guidelines, loan agreements in simple Hindi/regional language
+4.5.2 AI Technology Stack
+LLM: OpenAI GPT-4o / Google Gemini 1.5 Pro — fine-tuned on SHG domain data
+Voice: Google Speech-to-Text + Text-to-Speech for 12 Indian languages
+RAG (Retrieval-Augmented Generation): Real-time scheme database and market data retrieval
+Recommendation Engine: Collaborative filtering for courses, products, and scheme suggestions
+Guardrails: Strict hallucination prevention — financial advice always cites source
+Module 6: Government Scheme Hub
+Core Purpose: Bridge the scheme awareness and application gap for India's 90+ million SHG women
+4.6.1 Scheme Database
+Central government schemes: PM MUDRA Yojana, PMEGP, DAY-NRLM, PM SVANidhi, Startup India, Stand-Up India, PMFME (Food Processing), SFAC, APEDA
+State-specific schemes: Customised scheme database for each of India's 28 states and 8 UTs
+Scheme updates: Real-time scheme updates with notification to eligible SHGs
+Scheme tracker: Tracks which schemes have been applied for, approved, disbursed, or rejected
+4.6.2 Eligibility Engine
+Profile-based matching: SHG profile data (location, category, income, activity) auto-matched against scheme criteria
+Step-by-step guidance: Simplified application guide for each scheme in regional language
+Document checklist: AI-generated document checklist based on specific scheme and SHG profile
+DigiLocker integration: Documents fetched directly from DigiLocker — Aadhaar, PAN, certificates
+4.6.3 Application Workflow
+Member initiates scheme application from 'Scheme Hub'
+AI engine checks eligibility and shows match score (e.g., 92% match for MUDRA Shishu)
+System pre-fills application form using SHG profile data
+Member uploads additional documents via camera or DigiLocker
+Secretary reviews and approves application
+Application submitted to official portal or facilitated via CSC / BankSakhi
+Status tracked and updated: Submitted > Under Review > Approved > Disbursed
+Module 7: Community & Network
+Core Purpose: Build a peer learning and support network across India's SHG ecosystem
+4.7.1 Discussion Forums
+Topic-based forums: Business advice, loan experiences, marketplace tips, government schemes, product ideas
+Regional forums: State and language-specific communities for localised discussions
+Anonymous posting: Option to post anonymously for sensitive topics (group conflicts, domestic issues)
+Expert answers: Verified NGO workers, bank officers, and government officials can answer questions
+4.7.2 Success Stories
+Featured stories: Curated SHG success journeys with before/after metrics
+Video testimonials: Short-form video stories from SHG members across India
+Impact metrics: Real-time counter showing platform-wide loans disbursed, products sold, courses completed
+4.7.3 Mentor Marketplace
+Mentor profiles: NGO workers, retired bank officers, women entrepreneurs available as mentors
+1:1 booking: SHG members can book 30-minute virtual mentoring sessions
+Group webinars: Live masterclasses by successful SHG entrepreneurs and scheme officers
+5. USER JOURNEY MAPS
+5.1 New SHG Formation Journey
+Step
+User Action & Platform Response
+1. Discovery
+SHG leader hears about Setu via NRLM worker / radio / WhatsApp. Downloads app from Play Store.
+2. Registration
+Group leader enters SHG name, location, Aadhaar OTP verification. SHG unique ID generated.
+3. Member Addition
+Leader adds 10–20 members via phone number / Aadhaar. Each member receives SMS with app download link.
+4. First Meeting
+App prompts leader to record first meeting. Attendance marked. Agenda logged. Meeting minutes voice-recorded.
+5. Savings Setup
+Leader sets weekly savings amount (e.g., ₹100/member). First savings round recorded.
+6. Profile Completion
+Platform prompts to add bank account, upload bank passbook, complete KYC. SHG Score calculated at 35/100.
+7. Scheme Discovery
+AI engine identifies 3 eligible schemes. Platform guides application for MUDRA Shishu loan.
+8. Learning Start
+Leader recommended 'SHG Management 101' course. Completes in 3 sessions. Certificate earned.
+9. First Loan
+After 3 months of regular savings, SHG Score reaches 65/100. Bank loan application auto-prepared.
+10. Marketplace Launch
+Member lists first 5 products. First order received within 7 days from verified buyer.
+5.2 Loan Application Journey
+Member opens 'Finance' tab → 'Apply for Loan'
+Fills purpose (business expansion), amount (₹25,000), tenure (12 months)
+System calculates EMI: ₹2,291/month at 12% PA and shows affordability check
+Group president and secretary receive notification for approval
+Quorum vote: 8 of 12 members approve → Loan sanctioned within group
+If external bank loan: Auto-filled bank application generated. Secretary submits to bank.
+Bank officer accesses SHG Credit Score via API — approves loan in 72 hours
+Disbursement to SHG bank account. Platform automatically records receipt.
+EMI reminders sent via WhatsApp 3 days before each due date
+Repayment completion → credit score improves → next loan eligibility increases
+6. PRODUCT SUCCESS METRICS & KPIs
+Setu SHG OS tracks success across three levels: User Adoption, Economic Impact, and Platform Health. These metrics are tracked in real-time on the stakeholder dashboard.
+Metric Category
+Key Performance Indicator
+Target (Year 3)
+User Adoption
+Registered SHG Members
+10 Million
+User Adoption
+Active Monthly Users (MAU)
+5 Million
+User Adoption
+SHGs Onboarded
+500,000
+Financial Impact
+Total Loans Facilitated
+₹5,000 Crore
+Financial Impact
+Average Loan Size
+₹35,000
+Financial Impact
+Loan Repayment Rate
+>94%
+Marketplace
+Gross Merchandise Value (GMV)
+₹1,000 Crore
+Marketplace
+Active Sellers (SHG Groups)
+100,000
+Marketplace
+Repeat Buyer Rate
+>45%
+Learning
+Course Completions (Total)
+50 Million
+Learning
+Certification Issued
+10 Million
+Governance
+Digital Attendance Tracking Rate
+>90%
+AI Usage
+Monthly AI Copilot Interactions
+20 Million
+Government
+Schemes Applied Through Platform
+2 Million
+Government
+Scheme Approval Rate (Platform-aided)
+>65%
+7. NON-FUNCTIONAL REQUIREMENTS
+7.1 Accessibility & Inclusivity
+Offline-first: Core features (attendance, savings, loan recording) function without internet
+Low-end device support: Runs on devices with 1GB RAM, Android 6.0+, 50MB app size
+Slow network: Optimised for 2G/Edge connectivity — compressed assets, lazy loading
+Accessibility: Screen reader support, large text option, high-contrast mode
+Literacy-adaptive UI: Icon-first interface with voice labels — readable at Class 5 literacy level
+7.2 Performance Requirements
+Requirement
+Target Specification
+App Launch Time
+< 3 seconds on mid-range Android
+API Response Time
+< 500ms for 95th percentile requests
+Screen Load Time
+< 2 seconds on 3G connection
+Offline Sync Time
+< 30 seconds for full sync on reconnect
+Platform Uptime
+99.9% (< 8.7 hours downtime/year)
+Concurrent Users
+500,000 simultaneous active users
+Data Refresh Rate
+Financial data updates within 60 seconds
+7.3 Security & Privacy
+DPDP Act 2023 compliance: Full data consent management, right to erasure, data localisation
+RBI guidelines: Compliance with RBI's Digital Lending Guidelines (2022)
+Aadhaar: UIDAI-certified AUA/KUA agency compliance for Aadhaar usage
+Data encryption: AES-256 at rest, TLS 1.3 in transit
+Zero PII in logs: All logging pipelines strip personally identifiable information
+Audit trail: Immutable transaction log with cryptographic integrity verification
+8. LOCALISATION & MULTILINGUAL STRATEGY
+Language is the single most critical barrier for rural Indian users. Setu SHG OS treats multilingual support not as a feature but as foundational architecture. Every layer — UI, content, AI, customer support — is designed natively multilingual.
+Language
+Target State(s)
+Launch Phase
+Hindi
+UP, Bihar, MP, Rajasthan, Uttarakhand, Jharkhand
+Phase 1 (Launch)
+Tamil
+Tamil Nadu, Puducherry
+Phase 1 (Launch)
+Telugu
+Andhra Pradesh, Telangana
+Phase 1 (Launch)
+Marathi
+Maharashtra
+Phase 1 (Launch)
+Bengali
+West Bengal, Assam
+Phase 2
+Odia
+Odisha
+Phase 2
+Kannada
+Karnataka
+Phase 2
+Gujarati
+Gujarat
+Phase 2
+Punjabi
+Punjab, Haryana
+Phase 3
+Malayalam
+Kerala
+Phase 3
+Assamese
+Assam
+Phase 3
+Maithili
+Bihar, Jharkhand
+Phase 3
+8.1 Translation Architecture
+Translation memory: Professional translators build term glossaries for financial and legal terms
+UI strings: All UI text managed via i18n framework with language-specific font rendering
+Voice UI: Every button and screen has a voice label in the selected language
+Dynamic content: AI-generated content (business plans, scheme summaries) generated in selected language
+9. PRODUCT ROADMAP
+Phase
+Timeline
+Deliverables
+Phase 0: Foundation
+Month 1–2
+Architecture setup, Flutter app skeleton, backend API structure, design system, Hindi + Tamil UI
+Phase 1: Core MVP
+Month 3–5
+Member onboarding, attendance, savings ledger, internal loans, basic dashboard, UPI payment integration
+Phase 2: Financial Layer
+Month 6–8
+SHG Credit Score, bank linkage integration, Account Aggregator, external loan application flow
+Phase 3: Marketplace
+Month 9–11
+Product listing, B2C storefront, order management, logistics APIs (Delhivery), GST invoicing
+Phase 4: Learning & AI
+Month 12–14
+Learning Academy (50 courses), AI Copilot (Sakhi), voice assistant, scheme hub
+Phase 5: B2B & Scale
+Month 15–18
+B2B procurement portal, corporate buyer onboarding, NGO dashboard, government APIs
+Phase 6: Expansion
+Month 19–24
+8 additional languages, 5 new states, export facilitation, insurance cross-sell
+9.1 Feature Priority Matrix
+Priority Level
+Features
+P0 — Critical (Launch Blockers)
+Aadhaar KYC, savings ledger, UPI payments, attendance, loan management, offline sync
+P1 — High (Month 3–6)
+SHG Credit Score, bank loan application, learning academy, basic marketplace
+P2 — Medium (Month 6–12)
+AI Copilot, scheme hub, B2C storefront, WhatsApp integration, advanced analytics
+P3 — Low (Year 2)
+B2B portal, export facilitation, insurance, mentor marketplace, advanced gamification
+This PRD is intended to be read in conjunction with the Technical Requirements Document (TRD) and Business Requirements Document (BRD), which provide the engineering architecture and commercial framework respectively.
+— END OF PRODUCT REQUIREMENTS DOCUMENT —
+
+===== Setu_SHG_OS_TRD.docx =====
+SETU SHG OS
+India's Digital Operating System for Self-Help Groups
+TECHNICAL REQUIREMENTS DOCUMENT (TRD)
+Version
+1.0
+Date
+June 2025
+Architecture
+Cloud-Native Microservices
+Scale Target
+10 Million Users / 100K Daily TXNs
+Prepared for: Engineering Team | CTO | Technical Due Diligence
+1. SYSTEM ARCHITECTURE OVERVIEW
+Setu SHG OS is built on a cloud-native, microservices architecture deployed on AWS India Region (ap-south-1 Mumbai). The platform is designed for horizontal scalability from 10,000 to 10 million users with zero re-architecture. Every component is independently deployable, monitored, and scalable.
+1.1 High-Level Architecture
+Architecture Pattern: Mobile-First | API-First | Offline-First | Cloud-Native
+Layer
+Components & Technologies
+Client Layer
+Flutter Mobile App (Android + iOS), React Web Dashboard (NGO/Bank/Govt), Progressive Web App (PWA) for low-storage devices
+API Gateway Layer
+AWS API Gateway + Kong Gateway — Rate limiting, auth, routing, logging, versioning
+Microservices Layer
+8 domain services: User, SHG, Finance, Marketplace, Learning, AI, Notification, Analytics — each independently deployed on ECS Fargate
+Message Queue Layer
+Apache Kafka — Event streaming between services. Redis Queue for async jobs (notifications, reports)
+Database Layer
+PostgreSQL (primary transactions), MongoDB (content/logs), Redis (caching/sessions), ElasticSearch (search)
+Storage Layer
+AWS S3 (files/media), CloudFront CDN (static assets, video streaming)
+AI/ML Layer
+OpenAI API + Google Gemini, Custom Recommendation Engine on SageMaker, Vector DB (Pinecone) for RAG
+Infrastructure Layer
+Terraform IaC, AWS ECS Fargate (containers), AWS RDS (managed PostgreSQL), Auto Scaling Groups
+Observability Layer
+Datadog APM, AWS CloudWatch, Sentry (error tracking), Grafana dashboards
+1.2 Architecture Principles
+Offline-First: All critical user flows (attendance, savings recording, loan entry) persist to local SQLite and sync via background service when connectivity resumes
+API-First: Every feature exposed as REST + GraphQL API — enabling third-party bank, NGO, and government integrations without UI dependency
+Event-Driven: Services communicate via Kafka events — loose coupling, eventual consistency, full audit trail
+Data Sovereignty: All user data stored in AWS ap-south-1 (Mumbai) — RBI data localisation compliance
+Zero-Trust Security: Every service-to-service call authenticated with JWT + mutual TLS — no implicit trust
+2. FRONTEND ARCHITECTURE
+2.1 Mobile Application — Flutter
+Technology: Flutter 3.x | Dart | Target: Android 6.0+ (API 23+) | iOS 13+
+2.1.1 Flutter Architecture Pattern
+Layer
+Purpose & Technology
+Presentation Layer
+Flutter Widgets — BLoC (Business Logic Component) pattern for state management. Clean separation of UI and business logic.
+BLoC Layer
+flutter_bloc package — Event → State transformations. One BLoC per major feature (SHGBloc, FinanceBloc, MarketplaceBloc, etc.)
+Repository Layer
+Abstract data sources — business logic calls Repository, which decides: fetch from local DB or remote API
+Data Sources
+Remote: Dio HTTP client with interceptors. Local: Drift (SQLite) for offline persistence, Hive for key-value caching
+Models
+Dart data classes with json_serializable. Separate API models and domain models. Freezed for immutable state.
+2.1.2 Core Flutter Dependencies
+Package
+Purpose
+flutter_bloc ^8.x
+State management — predictable BLoC/Cubit pattern
+dio ^5.x
+HTTP client — interceptors, retry logic, certificate pinning
+drift (moor) ^2.x
+Local SQLite ORM — offline-first data persistence
+hive ^2.x
+Fast key-value local storage — caching, user preferences
+freezed ^2.x
+Immutable data classes — error-free state objects
+riverpod / provider
+Dependency injection across the widget tree
+go_router ^12.x
+Declarative routing with deep link support
+flutter_local_notifications
+Meeting reminders, loan due date alerts
+firebase_messaging
+Push notifications (FCM)
+speech_to_text
+Voice input for AI Sakhi assistant and meeting minutes
+flutter_tts
+Text-to-speech for accessibility and voice UI
+camera + image_picker
+Product photography, document scanning
+connectivity_plus
+Network state detection for offline/online mode switching
+flutter_secure_storage
+Encrypted local storage for tokens and sensitive data
+razorpay_flutter / cashfree
+In-app UPI payment flows
+share_plus
+Share passbooks, certificates, product listings via WhatsApp
+flutter_pdfview
+View loan agreements, passbooks, invoices in-app
+intl
+Date/number formatting, RTL support, multilingual
+geolocator
+GPS tagging for attendance and SHG location
+video_player
+Learning academy video playback
+cached_network_image
+Optimised image loading with disk caching
+2.1.3 Offline-First Architecture
+The mobile app uses a local-first approach where all user actions write to SQLite (via Drift) first, then sync to the server in the background. This ensures the app works in areas with zero connectivity — critical for rural India.
+Local SQLite schema mirrors backend PostgreSQL — key tables replicated locally
+Optimistic updates: UI updates instantly from local DB. Server sync happens asynchronously
+Conflict resolution: Last-write-wins for non-financial data; manual review flagged for conflicting financial entries
+Sync queue: All offline actions queued in Hive. Processed FIFO on next connection with retry + exponential backoff
+Delta sync: Only changed records synced — not full dataset. Reduces data usage on 2G connections
+2.1.4 Performance Optimisations for Low-End Devices
+APK size target: < 20MB (split APKs per ABI — arm64-v8a, armeabi-v7a)
+Lazy loading: Screens and features loaded on demand — not bundled in initial app load
+Image compression: All uploaded images auto-compressed to < 200KB before upload
+Video streaming: HLS adaptive bitrate streaming for learning videos — adjusts to network speed
+Memory management: BLoC closed when screen exits — prevents memory leaks on 1GB RAM devices
+Background sync: WorkManager (Android) / BGTaskScheduler (iOS) for offline sync — no foreground battery drain
+2.2 Web Dashboard — React + Next.js
+Technology: Next.js 14 (App Router) | TypeScript | TailwindCSS | For: NGO, Bank, Government users
+2.2.1 Web Architecture
+Component
+Technology & Purpose
+Framework
+Next.js 14 with App Router — SSR for SEO, RSC for performance, ISR for dashboard data
+Language
+TypeScript — full type safety across frontend codebase
+State Management
+Zustand (global state) + React Query / TanStack Query (server state, caching, background sync)
+Styling
+TailwindCSS + shadcn/ui component library — consistent design system
+Charts & Analytics
+Recharts + D3.js — SHG performance dashboards, loan trend graphs, geographic heat maps
+Forms
+React Hook Form + Zod validation — complex multi-step forms (loan applications, onboarding)
+Auth
+NextAuth.js with JWT — role-based access control (NGO Manager, Bank Officer, Govt Admin, Super Admin)
+Maps
+Mapbox GL JS — geographic distribution of SHGs, district-level analytics
+Tables
+TanStack Table v8 — virtualized tables for large datasets (10K+ SHG records)
+Export
+React-PDF + SheetJS — generate PDF reports and Excel exports from dashboard
+i18n
+next-intl — Hindi and English UI for web dashboard
+2.2.2 Dashboard Modules
+NGO Dashboard: SHG health overview, attendance rates, savings trends, loan NPA alerts, member dropout tracking
+Bank Dashboard: Credit score distribution, loan portfolio, disbursement queue, repayment performance, risk flags
+Government Dashboard: District-wise SHG formation, scheme uptake rates, economic impact metrics, geographic heat maps
+Admin Dashboard: Platform health, user growth, transaction volume, error rates, API usage
+Analytics: Cohort analysis, funnel tracking (registration to first loan), revenue attribution
+3. BACKEND ARCHITECTURE
+3.1 Microservices Design
+Technology: Node.js 20 LTS | NestJS Framework | TypeScript | Docker | AWS ECS Fargate
+The backend is divided into 8 domain microservices, each owning its data, exposing REST APIs, and communicating asynchronously via Kafka events. All services are containerised with Docker and orchestrated via AWS ECS Fargate.
+Service
+Responsibilities & Owned Data
+User Service
+Authentication (OTP + Aadhaar), JWT issuance, user profile, KYC verification, role management, session management. DB: Users, Sessions, KYC_Records
+SHG Service
+Group creation, member management, attendance, meeting minutes, group health score, federation linkage. DB: SHGs, Members, Meetings, Attendance, Resolutions
+Finance Service
+Savings ledger, internal loans, loan applications, repayments, SHG Credit Score calculation, passbook generation, bank linkage. DB: Transactions, Loans, Repayments, SHGScore
+Marketplace Service
+Product catalog, inventory, orders, logistics integration, B2B tenders, reviews, GST invoicing. DB: Products, Orders, Logistics, Invoices, Reviews
+Learning Service
+Course management, enrollment, progress tracking, quiz engine, certification issuance. DB: Courses, Enrollments, Progress, Certificates, Quizzes
+AI Service
+LLM API orchestration, Sakhi voice assistant, scheme matching engine, pricing engine, business plan generator, recommendation engine. Stateless — calls external APIs
+Notification Service
+SMS (AWS SNS + Gupshup), WhatsApp Business API, FCM push, email (AWS SES). Consumes Kafka events, sends notifications. DB: NotificationLog
+Analytics Service
+Event ingestion, metric aggregation, dashboard APIs, report generation, cohort analysis. DB: ClickHouse (OLAP), separate from operational DBs
+3.2 API Design
+REST + GraphQL APIs with OpenAPI 3.0 documentation
+3.2.1 REST API Standards
+Base URL: https://api.setu-shg.in/v1/
+Authentication: Bearer JWT token in Authorization header — all endpoints except /auth
+Versioning: URI versioning (/v1/, /v2/) — backward compatibility guaranteed for 2 major versions
+Rate limiting: 100 req/min per user, 1000 req/min per organization, burst allowance 200 req/10s
+Response format: Consistent JSON envelope — { success, data, error, meta: { page, limit, total } }
+Error codes: Domain-specific error codes (SHG_001: Group not found, FINANCE_403: Insufficient permissions, etc.)
+Pagination: Cursor-based pagination for lists — better performance than offset for large datasets
+3.2.2 Key API Endpoints
+Endpoint
+Description
+POST /auth/otp/send
+Send OTP to mobile number — rate limited (5 per hour per number)
+POST /auth/otp/verify
+Verify OTP, return JWT access + refresh tokens
+POST /auth/aadhaar/verify
+Aadhaar OTP-based eKYC verification via UIDAI
+POST /shg
+Create new SHG group — returns SHG unique ID
+GET /shg/{id}/dashboard
+Full SHG dashboard data — health score, savings, loans, attendance
+POST /shg/{id}/attendance
+Mark meeting attendance with GPS and timestamp
+POST /finance/savings
+Record savings contribution for a member
+POST /finance/loan/apply
+Submit loan application (internal or external bank)
+GET /finance/shg/{id}/score
+Get SHG Credit Score with parameter breakdown
+POST /marketplace/product
+Create product listing with images and details
+GET /marketplace/search
+Full-text search with filters (category, price, region, certifications)
+POST /marketplace/order
+Place B2C or B2B order with logistics selection
+POST /ai/query
+Send natural language query to Sakhi AI (text or voice transcript)
+GET /schemes/eligible/{shg_id}
+Get list of schemes SHG is eligible for with match scores
+GET /analytics/district/{id}
+District-level aggregated SHG metrics for government dashboard
+3.2.3 GraphQL API
+GraphQL is exposed at /graphql for complex, nested data queries from web dashboards. Used primarily by NGO and government stakeholders who need flexible data access without over-fetching.
+Schema-first design: GraphQL schema defines the contract — shared between frontend and backend
+DataLoader: N+1 query prevention via batched database fetches
+Subscriptions: Real-time updates for live dashboards via WebSocket
+Authentication: Same JWT as REST — context populated per request
+Persisted queries: Pre-registered queries only — prevents arbitrary query abuse
+4. DATABASE ARCHITECTURE
+4.1 Database Strategy
+Setu SHG OS uses a polyglot persistence approach — different database engines for different data characteristics. Each microservice owns its database — no shared database between services (Database-per-Service pattern).
+4.2 PostgreSQL — Primary Transactional Database
+Version: PostgreSQL 16 | Hosted: AWS RDS Multi-AZ | Backup: 7-day point-in-time recovery
+4.2.1 Core Schema — Users & SHG
+TABLE: users
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid()
+  phone           VARCHAR(10) UNIQUE NOT NULL
+  name            VARCHAR(255) NOT NULL
+  aadhaar_hash    VARCHAR(64) -- SHA-256 hash, NOT plain Aadhaar
+  kyc_status      ENUM('pending','verified','failed')
+  language        VARCHAR(20) DEFAULT 'hindi'
+  state           VARCHAR(50), district VARCHAR(50)
+  created_at      TIMESTAMPTZ DEFAULT NOW()
+TABLE: shg_groups
+  id              UUID PRIMARY KEY
+  name            VARCHAR(255) NOT NULL
+  registration_no VARCHAR(100) UNIQUE
+  formation_date  DATE
+  state           VARCHAR(50), district VARCHAR(50), village VARCHAR(100)
+  federation_id   UUID REFERENCES federations(id)
+  bank_account    VARCHAR(20), bank_ifsc VARCHAR(11)
+  credit_score    INTEGER DEFAULT 0 CHECK (credit_score BETWEEN 0 AND 100)
+  score_updated_at TIMESTAMPTZ
+  created_at      TIMESTAMPTZ DEFAULT NOW()
+TABLE: shg_members
+  id              UUID PRIMARY KEY
+  shg_id          UUID REFERENCES shg_groups(id) ON DELETE CASCADE
+  user_id         UUID REFERENCES users(id)
+  role            ENUM('president','secretary','treasurer','member')
+  joined_at       DATE
+  status          ENUM('active','inactive','exited') DEFAULT 'active'
+4.2.2 Finance Schema
+TABLE: savings_transactions
+  id              UUID PRIMARY KEY
+  shg_id          UUID REFERENCES shg_groups(id)
+  member_id       UUID REFERENCES shg_members(id)
+  amount          DECIMAL(12,2) NOT NULL
+  transaction_date DATE NOT NULL
+  payment_mode    ENUM('cash','upi','bank_transfer')
+  upi_ref_id      VARCHAR(50),  -- UPI transaction ID if applicable
+  recorded_by     UUID REFERENCES users(id)
+  created_at      TIMESTAMPTZ DEFAULT NOW()
+TABLE: loans
+  id              UUID PRIMARY KEY
+  shg_id          UUID REFERENCES shg_groups(id)
+  borrower_id     UUID REFERENCES shg_members(id)
+  loan_type       ENUM('internal','mudra','bank_linkage','nbfc','mfi')
+  principal       DECIMAL(12,2) NOT NULL
+  interest_rate   DECIMAL(5,2) NOT NULL -- Annual %
+  tenure_months   INTEGER NOT NULL
+  purpose         VARCHAR(255)
+  status          ENUM('applied','approved','disbursed','active','closed','npa')
+  disbursed_at    TIMESTAMPTZ
+  emi_amount      DECIMAL(12,2) GENERATED ALWAYS AS (/* EMI formula */) STORED
+  created_at      TIMESTAMPTZ DEFAULT NOW()
+4.2.3 Database Performance
+Connection pooling: PgBouncer — max 1000 connections pooled to 100 DB connections
+Read replicas: 2 RDS read replicas for analytics and reporting queries — offload from primary
+Indexes: Covering indexes on all foreign keys and frequently queried columns (shg_id, district, status)
+Partitioning: savings_transactions and loan_repayments partitioned by year — improves query performance on large datasets
+Vacuum scheduling: Automated VACUUM ANALYZE for high-write tables — prevents bloat
+4.3 MongoDB — Content & Activity Store
+Version: MongoDB 7.0 | Hosted: MongoDB Atlas M30 cluster | Region: Mumbai
+Use case: Unstructured/semi-structured content — course metadata, meeting minutes (voice + text), product descriptions, user activity logs
+Collections: courses, lessons, meeting_notes, product_descriptions, activity_logs, scheme_documents, notifications
+// Course document structure
+{ _id: ObjectId, title: { hi: 'SHG प्रबंधन', en: 'SHG Management' },
+  lessons: [{ id, title, video_url, audio_url, pdf_url, duration_min, quiz_id }],
+  language: ['hindi','tamil','telugu'], category: 'governance',
+  target_role: 'secretary', difficulty: 'beginner', total_xp: 500 }
+4.4 Redis — Cache & Session Store
+Version: Redis 7.x | Hosted: AWS ElastiCache (Multi-AZ) | Use: Caching + Sessions + Queues
+Redis Usage
+Implementation Details
+Session Store
+JWT refresh tokens stored with 30-day TTL. Allows instant token revocation.
+API Cache
+SHG dashboard data, credit scores, scheme lists — cached with 5-minute TTL. Cache-aside pattern.
+Rate Limiting
+Sliding window rate limits for OTP (5/hour), API (100/min). Atomic INCR operations.
+Job Queue
+Bull Queue for async jobs: report generation, bulk notifications, credit score recalculation.
+Pub/Sub
+Real-time dashboard updates for NGO web portal — Redis pub/sub channel per district.
+Leaderboards
+Learning academy leaderboards using Redis Sorted Sets — O(log n) ranking updates.
+4.5 ElasticSearch — Search Engine
+Version: OpenSearch 2.x (AWS managed) | Use: Marketplace search, Scheme discovery
+Product search: Full-text search across title, description, tags — with fuzzy matching for misspellings
+Faceted search: Filter by category, price range, state, certification, rating — real-time aggregations
+Scheme search: NLP-based semantic search across 200+ scheme documents in Hindi and English
+Auto-suggest: Type-ahead suggestions as user types in search bar (debounced at 300ms)
+Indexing pipeline: PostgreSQL → Debezium CDC → Kafka → ElasticSearch consumer — near real-time index
+5. AI & MACHINE LEARNING LAYER
+5.1 AI Architecture Overview
+The AI layer of Setu SHG OS is built around three pillars: a conversational AI assistant (Sakhi), a recommendation engine, and a document intelligence system. All AI features are designed with hallucination prevention, cost control, and regional language support as first-class requirements.
+5.2 Sakhi AI — Voice & Chat Assistant
+Component
+Technology & Implementation
+LLM
+Primary: Google Gemini 1.5 Flash (cost-efficient, multilingual). Fallback: OpenAI GPT-4o Mini
+Voice Input
+Google Cloud Speech-to-Text v2 — 12 Indian languages. Deployed at API layer, transcript sent to LLM
+Voice Output
+Google Cloud Text-to-Speech — Neural2 voices for Hindi, Tamil, Telugu, Bengali. Natural prosody.
+Context Management
+Conversation history stored in Redis (30-min TTL) — maintains context across multi-turn conversations
+RAG System
+Scheme documents, loan terms, platform FAQs vectorised with text-embedding-3-small. Stored in Pinecone vector DB. Retrieved on every query.
+Guardrails
+LLM output filtered through rules engine: no specific medical/legal advice, all financial figures cited from verified sources, profanity filter in all 12 languages
+Prompt Engineering
+System prompt defines Sakhi's persona: empathetic, simple Hindi, uses examples from daily life. Few-shot examples for financial queries.
+Cost Management
+Input context window < 4K tokens. Caching identical queries via Redis (SHA-256 hash of prompt). Estimated cost: ₹0.02 per conversation.
+5.3 Recommendation Engine
+Recommendation Type
+Algorithm & Data Sources
+Course Recommendations
+Collaborative filtering (user similarity) + content-based (role, completed courses, SHG stage). Retrained weekly on AWS SageMaker.
+Scheme Matching
+Rule-based engine + ML classifier — SHG profile attributes vs. scheme eligibility criteria. Accuracy target: >90% precision.
+Loan Product Matching
+Gradient boosting model — SHG credit score, loan history, group size, geography vs. available loan products from partner banks/MFIs.
+Product Pricing
+Regression model trained on marketplace sales data — features: material cost, category, geography, seasonality, competitor prices.
+Marketplace Discovery
+Collaborative filtering for buyer recommendations — 'SHGs like yours also sell X' (for sellers) and 'Buyers like you also bought Y' (for buyers)
+5.4 SHG Credit Scoring Engine
+The SHG Credit Score (SCS) is a proprietary 0–100 score calculated for each SHG group on a weekly basis. It is the primary data product of Setu SHG OS, enabling formal bank lending to previously uncreditworthy groups.
+Calculation frequency: Nightly batch job (2 AM IST) recalculates all active SHG scores
+Real-time recalculation: Score recalculated instantly when a qualifying event occurs (loan repayment, savings deposit, attendance marked)
+Model: Weighted scoring with 18 parameters — weights calibrated via logistic regression on historical SHG loan repayment data
+Explainability: Every score comes with factor breakdown — banks and SHGs see exactly why score is X
+API: GET /finance/shg/{id}/score returns score, trend, 6-month history, and improvement recommendations
+6. INTEGRATION ARCHITECTURE
+6.1 Government & Identity Integrations
+Integration
+Purpose & Implementation
+Aadhaar eKYC (UIDAI)
+OTP-based identity verification. Integrated via UIDAI AUA/KUA certified gateway (Digio/NSDL). Returns name, DOB, gender, address. NO Aadhaar number stored — only hash.
+DigiLocker API
+Document fetch: Aadhaar card, PAN, caste certificate, land records, bank passbook. OAuth 2.0 flow. User grants consent per document.
+PAN Verification (NSDL)
+PAN validity and name match check for loan applications and marketplace seller verification.
+Account Aggregator (Sahamati)
+Consented financial data sharing — bank statements, transaction history — for credit assessment. AA framework compliance.
+UMANG API
+Access to 1200+ government services — scheme applications routed through UMANG where available.
+PM Kisan / PMEGP APIs
+Direct application submission for key central schemes via NIC-provided APIs.
+GSTN API
+GST number verification for B2B marketplace buyers. GSTR filing status check for compliant invoicing.
+6.2 Banking & Financial Integrations
+Integration
+Purpose & Implementation
+UPI / NPCI
+P2M and P2P payments — Razorpay UPI and Cashfree UPI APIs. Supports all UPI apps (BHIM, GPay, PhonePe, PayTM). Collect request API for bulk savings collection.
+Account Aggregator
+Sahamati network — consented data sharing with partner banks for SHG underwriting. Standard AA 1.1.3 protocol.
+Bank API Partners
+SBI, UCO Bank, Bandhan Bank — direct API integration for SHG-Bank Linkage Programme applications and loan disbursement notifications.
+NACH / eMandate
+Auto-debit for loan EMI collection via NPCI NACH framework — reduces collection friction.
+Razorpay
+Marketplace payments: order checkout, payouts to SHG bank accounts, refund management. RazorpayX for SHG payouts.
+Cashfree Payments
+Alternative payment gateway — used when Razorpay is unavailable. Route optimization for best success rate.
+6.3 Logistics Integrations
+Delhivery API: Primary logistics partner — pin code serviceability check, shipment creation, label printing, tracking, COD
+Ecom Express API: Secondary partner — better penetration in Eastern India (WB, Odisha, Bihar)
+India Post API: Last-mile fallback for pin codes not served by private couriers
+Shiprocket API: Rate aggregator — fetches rates from multiple couriers and selects cheapest option
+Webhook handling: All logistics providers send delivery status webhooks — processed by Notification Service
+6.4 Communication Integrations
+Channel
+Provider & Implementation
+SMS (Transactional)
+AWS SNS + Gupshup — OTP, payment confirmations, meeting reminders. DLT registered sender ID.
+WhatsApp Business
+Meta WhatsApp Business API via Gupshup partner — passbook sharing, certificate delivery, loan alerts, order notifications.
+Push Notifications
+Firebase Cloud Messaging (FCM) — Flutter plugin for Android and iOS. Topic-based subscriptions (district-level alerts).
+Email
+AWS SES — for web dashboard users (NGO, bank). HTML templates for reports, invoices, alerts.
+IVR (Phase 2)
+Ozonetel / Exotel — outbound calls for non-smartphone users in deep rural areas.
+7. SECURITY ARCHITECTURE
+7.1 Authentication & Authorisation
+OTP Authentication: 6-digit OTP via SMS, 5-minute TTL, 5 attempts before lockout (15-minute cooldown)
+JWT Tokens: Access token (15-min TTL), Refresh token (30-day TTL) stored in Redis for revocation
+Role-Based Access Control (RBAC): Member, Secretary, President, NGO_Manager, Bank_Officer, Govt_Admin, Super_Admin
+Attribute-Based AC: Finance operations require additional OTP confirmation for amounts > ₹10,000
+Certificate Pinning: Flutter app pins TLS certificate — prevents MITM on public WiFi
+7.2 Data Security
+Security Control
+Implementation
+Data Encryption at Rest
+AWS RDS encrypted with AES-256. S3 server-side encryption (SSE-S3). EBS volumes encrypted.
+Data Encryption in Transit
+TLS 1.3 mandatory for all API connections. HSTS headers. Certificate via AWS ACM.
+PII Protection
+Aadhaar stored as SHA-256 hash only. Phone numbers in Redis sessions only. All logs strip PII via log4j filter.
+Secrets Management
+AWS Secrets Manager — database credentials, API keys, JWT secrets. Auto-rotation every 30 days.
+VAPT
+Quarterly penetration testing by CERT-In empaneled security firm. Critical findings fixed within 72 hours.
+Dependency Scanning
+Snyk + npm audit in CI/CD — blocks deployment if high-severity CVE detected.
+WAF
+AWS WAF on API Gateway — SQL injection, XSS, rate limiting, geo-blocking for non-India traffic.
+7.3 Compliance Framework
+DPDP Act 2023: Privacy notice displayed at registration. Explicit consent for each data use case. Data deletion endpoint for right to erasure. Data retention policy: 7 years for financial records (RBI requirement), 2 years for activity logs.
+RBI Digital Lending Guidelines (2022): No auto-debit on Day 0. Cooling-off period compliance. Loan summary page before disbursement. Grievance redressal mechanism within platform.
+UIDAI Aadhaar Regulations: AUA/KUA certified partner. No Aadhaar biometric — OTP only. UIDAI audit logs maintained.
+ISO 27001: Security controls implemented as per ISO 27001:2022 framework. Certification targeted Year 2.
+8. INFRASTRUCTURE & DEVOPS
+8.1 Cloud Infrastructure (AWS)
+Component
+AWS Service & Configuration
+Compute
+ECS Fargate — serverless containers. No EC2 management. Auto-scales 1-100 tasks per service.
+Database
+RDS PostgreSQL 16 (Multi-AZ, db.r6g.large). ElastiCache Redis (cache.r6g.large, cluster mode).
+Storage
+S3 Standard for assets. S3 Intelligent-Tiering for learning content > 30 days old. CloudFront CDN.
+API Gateway
+AWS API Gateway v2 (HTTP API) + Kong for advanced routing. Lambda authorizer for JWT validation.
+Message Queue
+Amazon MSK (Managed Kafka) — 3-broker cluster. 30-day message retention.
+Search
+Amazon OpenSearch 2.x — 3-node cluster (r6g.large.search). Automated snapshots to S3.
+CDN
+CloudFront — 450+ PoPs globally. Edge caching for learning videos, static assets. OAI for S3 access.
+DNS & SSL
+Route 53 for DNS. ACM for SSL certificates. Health checks with failover routing.
+Monitoring
+CloudWatch Logs + Metrics. Datadog APM for distributed tracing. PagerDuty for alerting.
+Backup
+AWS Backup — automated daily snapshots of RDS, EFS. 30-day retention. Cross-region to ap-southeast-1 (Singapore).
+8.2 CI/CD Pipeline
+Stage
+Tools & Actions
+Source Control
+GitHub — main branch protected. Feature branches required for all changes. Signed commits enforced.
+Code Quality
+ESLint + Prettier (JS/TS), Dart analyzer (Flutter). PR blocked if linting fails.
+Security Scan
+Snyk + OWASP Dependency Check on every PR. Secrets detection via GitGuardian.
+Unit Tests
+Jest (Node.js services), flutter_test (mobile). Minimum 80% code coverage enforced.
+Integration Tests
+Supertest for API testing. Testcontainers for DB integration tests with real PostgreSQL.
+Build
+GitHub Actions — Docker images built and pushed to AWS ECR. Semantic versioning with git tags.
+Staging Deploy
+Auto-deployed to staging environment on PR merge to main. Full E2E tests with Playwright.
+Production Deploy
+Manual approval gate — CTO or Lead Engineer approves. Blue/green deployment via ECS. Zero-downtime.
+Rollback
+One-click rollback to previous ECS task definition. Database migrations always backward-compatible.
+Monitoring
+Datadog deployment markers. Automatic rollback if error rate > 5% within 10 min of deploy.
+8.3 Scalability Architecture
+Horizontal scaling: ECS Fargate auto-scales each service independently based on CPU (>70%) and memory (>80%) thresholds
+Database scaling: RDS read replicas absorb analytics traffic. PgBouncer connection pooling handles connection spikes.
+CDN caching: Learning video content served from CloudFront — 95%+ cache hit rate reduces origin server load
+Async processing: Heavy operations (credit score batch, report generation, bulk notifications) offloaded to job queues — doesn't block user-facing APIs
+Load testing: Monthly k6 load tests simulate 500K concurrent users — identifies bottlenecks before production traffic
+— END OF TECHNICAL REQUIREMENTS DOCUMENT —
+
+===== Setu_SHG_OS_BRD.docx =====
+SETU SHG OS
+India's Digital Operating System for Self-Help Groups
+BUSINESS REQUIREMENTS DOCUMENT (BRD)
+"Setu SHG OS is building the digital infrastructure layer for India's 90+ million SHG women, enabling access to finance, markets, skills, and government services through one unified platform."
+Prepared for: Investors | Incubators | Government Grant Bodies | Corporate Partners
+1. EXECUTIVE SUMMARY — THE BUSINESS CASE
+India's Self-Help Group (SHG) network is the world's largest women-led microfinance and livelihood ecosystem. With 8.5 million groups, 90+ million members, and ₹5.5 lakh crore in annual savings mobilisation, SHGs represent an extraordinary, deeply underserved economic opportunity that has never been addressed with a comprehensive digital solution.
+Setu SHG OS is not an app. It is the foundational digital infrastructure layer for the SHG economy — analogous to how Shopify built the infrastructure for e-commerce merchants, or how Zoho built the infrastructure for SME operations. We are building the operating system that every SHG in India will run on.
+Metric
+Current State
+Setu SHG OS Impact (Year 5)
+SHGs with digital bookkeeping
+< 5%
+> 60% on platform
+SHGs with bank credit access
+18%
+> 45% (platform-facilitated)
+SHG products with national reach
+< 2%
+> 25% active on marketplace
+SHG members with digital literacy
+< 10%
+> 40% (certified)
+Govt scheme utilisation rate
+< 40%
+> 75% (AI-matched + applied)
+Average SHG annual income
+₹25,000 group
+> ₹1,50,000 group
+Investment Thesis: Setu SHG OS targets a ₹85,000 Crore addressable market across financial services, marketplace, and SaaS — with a network-effect moat that compounds as SHGs, banks, NGOs, and buyers join the ecosystem.
+2. MARKET OPPORTUNITY — TAM SAM SOM
+2.1 Total Addressable Market (TAM)
+The total market opportunity for Setu SHG OS spans four segments: Financial Services, Marketplace Commerce, SaaS/Technology Subscriptions, and Government Technology.
+Market Segment
+TAM Calculation & Size
+SHG Financial Services
+90M women × ₹50,000 average annual loan access = ₹45 Lakh Crore loan market. Setu addresses the facilitation layer (1-3% fee) = ₹45,000–₹1,35,000 Crore revenue opportunity.
+SHG Marketplace (GMV)
+8.5M SHGs × ₹1 Lakh average annual product sales = ₹85,000 Crore GMV potential. Platform commission at 3-5% = ₹2,550–₹4,250 Crore.
+SaaS Subscriptions
+1,00,000 SHG Federations + 200 NGOs + 50 Banks + 28 State Governments. Average ₹25,000/year = ₹3,500 Crore SaaS TAM.
+GovTech (Dashboards)
+28 states + 8 UTs + NRLM + 5 Ministries × ₹2 Crore/year licensing = ₹700 Crore GovTech TAM.
+Insurance Cross-Sell
+90M women × ₹2,000 average annual premium × 10% penetration target = ₹1,800 Crore commission opportunity.
+TOTAL TAM
+₹85,000 Crore+ addressable market across all segments (Financial, Commerce, SaaS, GovTech, Insurance)
+2.2 Serviceable Addressable Market (SAM)
+Segment
+SAM (Year 5 — Realistic Penetration)
+Financial Services (Loan Facilitation)
+10% of TAM = ₹4,500–₹13,500 Crore facilitated loans → ₹45–₹135 Crore revenue
+Marketplace GMV
+10% of TAM = ₹8,500 Crore GMV → ₹255–₹425 Crore commission revenue
+SaaS Subscriptions
+30% of addressable institutions = ₹1,050 Crore
+Government Licensing
+60% of states = ₹420 Crore
+TOTAL SAM
+₹1,800–₹2,100 Crore annual revenue at 10% market penetration
+2.3 Serviceable Obtainable Market (SOM)
+Year
+SOM Target & Basis
+Year 1
+₹8–₹12 Crore ARR — 500 SHG Federations on SaaS, ₹200 Crore loans, ₹50 Crore GMV
+Year 2
+₹35–₹50 Crore ARR — 3,000 Federations, ₹1,000 Crore loans, ₹250 Crore GMV
+Year 3
+₹120–₹180 Crore ARR — 15,000 Federations, ₹5,000 Crore loans, ₹1,000 Crore GMV
+Year 4
+₹350–₹500 Crore ARR — 5 government contracts, 50K Federations, ₹15,000 Crore loans
+Year 5
+₹800–₹1,200 Crore ARR — National scale, 2 Lakh+ Federations, ₹50,000 Crore loans
+3. COMPETITIVE LANDSCAPE & DIFFERENTIATION
+3.1 Competitive Matrix
+Solution
+Scope
+Limitations
+Our Advantage
+Sangam (NRLM MIS)
+Govt reporting only
+No financial tools, no marketplace, no AI, Hindi-only
+Full stack — 7 modules, 12 languages, AI-powered
+myAgriGuru / eSamudaay
+Marketplace only
+No finance, no governance, no learning, no AI
+Finance + Marketplace + Learning integrated
+Microfinance Apps (KreditBee, etc.)
+Lending only
+No group management, no marketplace, no training
+Community-first, SHG-native model
+NGO Tools (Dimagi, CommCare)
+Data collection only
+Not SHG-specific, no financial services, expensive
+Purpose-built for SHG ecosystem, affordable
+Udyam Sakhi (NABARD)
+Basic bookkeeping
+No marketplace, no AI, no learning, limited languages
+Complete OS — not just bookkeeping
+Digital SHG (SBI Yono Krishi)
+Bank's SHG portal
+Limited to SBI, no marketplace, basic features
+Bank-agnostic, multi-bank, full feature parity
+3.2 Unique Competitive Advantages
+Moat 1: Data Network Effect
+Every SHG that uses Setu generates proprietary financial, transactional, and behavioral data. This data improves the SHG Credit Score model, the recommendation engine, and the pricing engine. More SHGs → better data → better credit scores → more banks → more loans → more SHGs. This virtuous cycle creates a deepening data moat that cannot be replicated quickly.
+Moat 2: Trust & Institutional Relationships
+Setu integrates with NABARD, DAY-NRLM, state NRLMs, and commercial banks. These institutional relationships take years to build and provide regulatory credibility, distribution reach (SHG field officers as product ambassadors), and data access that a new entrant cannot achieve.
+Moat 3: Offline-First + Vernacular Architecture
+Our offline-first Flutter app and 12-language support took 18 months to architect correctly. The AI models are fine-tuned on Indian SHG domain data in regional languages. Competitors who try to replicate this face an 18-24 month technology gap.
+Moat 4: SHG Credit Score (SCS) Proprietary Asset
+The SHG Credit Score, built from platform data, is a first-of-its-kind financial product for group lending. Once banks begin underwriting against SCS, it becomes a self-reinforcing standard — similar to how CIBIL became the standard for individual credit in India.
+4. STAKEHOLDER VALUE ANALYSIS
+Setu SHG OS creates multi-sided value across a rich ecosystem of stakeholders. Unlike single-sided platforms, our value proposition strengthens as more stakeholder types join — creating powerful cross-side network effects.
+4.1 SHG Members & Groups — Core Users
+Value Driver
+Quantified Benefit
+Financial Transparency
+Eliminating register errors saves SHGs ₹8,000–₹15,000/year in mismanaged funds. 100% transparent passbook increases member trust and group retention.
+Credit Access
+Platform-facilitated bank loans at 10-14% PA vs. informal moneylenders at 36-60% PA. Savings of ₹12,000–₹30,000/year in interest costs for a ₹50,000 loan.
+Market Access
+Direct marketplace eliminates middlemen who capture 40-60% margins. SHG artisan earning ₹500 for a saree can earn ₹1,200 selling directly — 2.4x income increase.
+Scheme Benefits
+Average eligible SHG qualifies for ₹1,50,000+ in scheme grants and subsidies. Platform helps claim an average ₹60,000 per SHG through assisted applications.
+Skill Development
+Certified SHG members earn 15-25% higher prices by demonstrating product quality and business competence to buyers.
+Time Savings
+Digital bookkeeping saves secretary 4-6 hours/week. Annual saving: 250+ hours of manual record-keeping time.
+4.2 Commercial Banks & MFIs
+Value Driver
+Quantified Benefit
+Credit Intelligence
+SHG Credit Score reduces loan assessment time from 3 weeks to 3 days. Bank officer can process 5x more SHG loan files per month.
+Portfolio Quality
+Platform SHGs show >94% repayment rate vs. 78% industry average. Reduces NPA provisioning requirement by 35-40%.
+Market Expansion
+Banks can reach SHGs in pin codes previously unviable for branch-based lending. 40% of platform SHGs are in areas with no bank branch within 10 km.
+Regulatory Compliance
+Auto-generated SHG-Bank Linkage documentation satisfies NABARD Phase I/II/III requirements. Reduces compliance processing time by 60%.
+Customer Acquisition
+Every SHG loan is a gateway to 12-20 individual member savings accounts, insurance policies, and personal loan products.
+4.3 NGOs & SHG Federations
+Real-time monitoring: NGO field worker's workload reduced by 40% — digital attendance, savings, and loan data eliminates paper-based field visits
+Impact reporting: Auto-generated impact reports for donor reporting (FCRA compliance) in hours vs. weeks
+Program management: Track training completion, scheme uptake, business growth across 1,000+ SHGs from a single dashboard
+Scale without headcount: NGO managing 500 SHGs manually requires 25 field officers. With Setu, same reach with 8 officers.
+4.4 Government Agencies
+DAY-NRLM: Real-time visibility into programme performance — SHG formation, grading, bank linkage, livelihood outcomes — district by district
+NABARD: Digital SHG grade data for Credit Guarantee Fund scheme. Reduces manual verification overhead by 70%.
+State Governments: Economic impact data — jobs created, income growth, scheme utilisation by district — for planning and election reporting
+Ministry of WCD: Women's empowerment metrics: digital literacy, financial independence, market income, scheme access
+4.5 Corporate & Institutional Buyers
+Verified sourcing: Access to quality-certified, geotagged SHG products with production capacity data — fulfills CSR procurement and ESG mandates
+Bulk ordering: Place purchase orders directly to 100+ SHGs in a single procurement event through the B2B portal
+Traceability: Full farm-to-shelf or artisan-to-shelf supply chain traceability — supports premium pricing and brand storytelling
+Tender compliance: Government CSR departments and PSUs can fulfill procurement quotas for SHG-made goods through the tender board
+5. REVENUE MODEL — DETAILED BREAKDOWN
+5.1 Revenue Streams
+Revenue Stream
+Model, Pricing & Projections
+Stream 1: SaaS Subscriptions
+SHG Federation subscription: ₹500–₹5,000/month based on number of SHGs managed. Bank/MFI subscription: ₹15,000–₹1,50,000/month based on portfolio size. NGO subscription: ₹3,000–₹25,000/month. Govt dashboard: ₹25–₹200 Lakh/year state license.
+Stream 2: Loan Facilitation Fees
+1–3% processing fee on every loan facilitated through the platform (collected from bank/MFI partner, NOT from SHG). Based on ₹5,000 Crore Year 3 loan volume at 1.5% avg fee = ₹75 Crore.
+Stream 3: Marketplace Commission
+2–5% GMV commission on every marketplace transaction. Average 3.5%. Year 3: ₹1,000 Crore GMV × 3.5% = ₹35 Crore.
+Stream 4: Insurance Commission
+10–15% commission on insurance premiums cross-sold to SHG members (health, life, crop, livestock). Year 3: 5M members × ₹1,500 avg premium × 12% commission = ₹90 Crore.
+Stream 5: Learning Certification
+Premium course certification: ₹49–₹299/certificate. Advanced business courses: ₹499–₹999. B2B: NGO/Govt bulk purchase of training credits.
+Stream 6: Logistics Revenue Share
+0.5–1% revenue share from logistics partner for every shipment routed through platform integration (Delhivery/Ecom Express commercial agreement).
+Stream 7: Data & Analytics API
+B2B API access for research institutions, credit bureaus, and ESG analytics firms — anonymised, aggregated SHG economic data. ₹5–₹50 Lakh/year per subscriber.
+Stream 8: Premium Features
+AI Business Plans (₹199/plan), Branded Storefronts (₹499/month), Advanced Analytics (₹999/month), Priority Loan Processing (₹299/application).
+5.2 Revenue Projection (5-Year P&L Summary)
+Year 1
+Year 3
+Year 5
+SaaS Revenue
+₹3 Cr
+₹45 Cr
+₹200 Cr
+Loan Facilitation
+₹2 Cr
+₹75 Cr
+₹400 Cr
+Marketplace Commission
+₹0.5 Cr
+₹35 Cr
+₹180 Cr
+Insurance Commission
+₹0.2 Cr
+₹20 Cr
+₹120 Cr
+Learning & Certification
+₹0.3 Cr
+₹8 Cr
+₹40 Cr
+Data & Analytics API
+₹0 Cr
+₹5 Cr
+₹30 Cr
+TOTAL REVENUE
+₹6 Cr
+₹188 Cr
+₹970 Cr
+Gross Margin
+55%
+68%
+75%
+EBITDA
+-₹18 Cr
+₹28 Cr
+₹290 Cr
+6. GO-TO-MARKET STRATEGY
+6.1 GTM Philosophy
+Setu SHG OS follows a "Government-Led, NGO-Distributed, Technology-Enabled" GTM model. This is the only viable approach for reaching rural SHGs at scale — direct consumer acquisition in rural India requires institutional trust channels (government programs, NGO networks, bank field officers) that we build as formal partnerships, not as ad spend.
+6.2 Phase-by-Phase Rollout
+Phase
+Strategy, Target & Milestones
+Phase 0: Foundation (Month 1–3)
+Build product. Partner with 1 NGO federation (UP/Bihar). Hire 5 field implementation officers. Set up bank partnership with 1 bank (UCO/Bandhan). Deploy to 100 SHGs in 5 districts. Goal: Validate product-market fit, collect user feedback, achieve 80%+ DAU.
+Phase 1: District Pilot (Month 4–9)
+Expand to 10 districts in UP. Onboard 1,000 SHGs. Sign MoU with state NRLM. Launch marketplace with first 50 SHG sellers. First bank loan facilitated through platform. Hire 20 field officers + 3 district managers. ARR: ₹50 Lakh.
+Phase 2: State Scale (Month 10–18)
+Full UP rollout (75 districts). Start MP, Bihar, Tamil Nadu. Onboard 10,000 SHGs. 3 bank partners. 500 SHG sellers on marketplace. Govt dashboard for UP state NRLM. Raise Series A. ARR: ₹8 Crore.
+Phase 3: Multi-State (Month 19–30)
+10 states. 1,00,000 SHGs. 5 bank partners. DAY-NRLM central MoU. ₹500 Crore loans facilitated. 50,000 marketplace sellers. Launch AI Copilot. ARR: ₹50 Crore.
+Phase 4: National Scale (Month 31–48)
+25 states. 5,00,000 SHGs. SHG Credit Score adopted by 10+ banks as standard. ₹5,000 Crore loans. B2B corporate buyer program. Insurance distribution license. ARR: ₹200 Crore.
+Phase 5: Platform Economy (Month 49–60)
+Full national coverage. 1 Million+ SHGs. Financial OS becomes the standard. Explore Southeast Asia expansion (Vietnam, Bangladesh, Indonesia have similar SHG models). ARR: ₹500–₹1,000 Crore.
+6.3 Distribution Channels
+Channel
+Mechanism
+Contribution to Growth
+State NRLM Networks
+MoU with state NRLMs → mandatory platform for new SHG formation in program districts
+40% of SHG acquisition — single contracts unlock 50,000+ SHGs
+NGO Federations
+B2B SaaS sale to NGO federation → their 500-5,000 SHGs auto-onboarded
+30% — NGO pays subscription, distributes to member SHGs
+Bank Field Officers
+Bank trains BCs and Sakhi agents to onboard SHGs — loan facilitation incentive
+15% — banks have 2 Lakh+ BCs in rural India
+Referral (SHG to SHG)
+In-app referral: SHG president shares referral link. 3-month free subscription for referrer.
+10% — viral within SHG clusters and district networks
+Government Tenders
+Bid for national/state government IT contracts for SHG digitisation
+5% — large contracts but long sales cycle (12–24 months)
+7. FINANCIAL PLAN & INVESTMENT REQUIREMENTS
+7.1 Funding Requirement
+Total Raise: ₹25 Crore Seed Round | Use: 18-Month Runway to Series A Milestone
+Use of Funds
+Amount & Allocation
+Product Development (Engineering)
+₹8 Crore (32%) — 12-person engineering team for 18 months. Flutter devs, backend, AI, QA, DevOps.
+Operations & Field Team
+₹5 Crore (20%) — 30 field implementation officers across 5 states. District managers, training coordinators.
+Marketing & Partnerships
+₹3 Crore (12%) — NGO partnerships, NRLM MoU facilitation, content creation, community events, WhatsApp marketing.
+Infrastructure & Cloud
+₹2.5 Crore (10%) — AWS infrastructure, third-party APIs (Aadhaar, DigiLocker, payment gateways), security audits.
+Content & Learning
+₹2 Crore (8%) — Video production for 100 courses in 8 languages. Professional translators, voice artists, studio costs.
+Regulatory & Legal
+₹1.5 Crore (6%) — RBI compliance (Account Aggregator license application), UIDAI AUA certification, legal fees, IP protection.
+Working Capital & Reserve
+₹3 Crore (12%) — Operational buffer, unexpected regulatory costs, emergency fund.
+TOTAL
+₹25 Crore — 18-month runway to Series A milestone (₹50 Crore ARR, 1 Lakh SHGs, 3 bank partnerships)
+7.2 Unit Economics
+Metric
+Value & Calculation
+Customer Acquisition Cost (CAC)
+₹180 per SHG (blended across NRLM, NGO, bank channels). Direct digital CAC ₹450, government channel ₹35.
+Annual Revenue per SHG (ARPU)
+₹2,400/year — SaaS (₹600) + Loan facilitation (₹900) + Marketplace (₹500) + Insurance (₹400).
+Gross Margin per SHG
+72% — after payment processing (3%), logistics API cost (2%), infrastructure (8%), support (5%), content (10%).
+Customer Lifetime Value (LTV)
+₹14,400 — assuming 6-year average SHG lifetime on platform (government SHGs have 10+ year lifespans).
+LTV:CAC Ratio
+80:1 — extraordinary unit economics driven by institutional acquisition channels (near-zero marginal CAC via NRLM)
+Payback Period
+11 months — time to recover CAC from SHG subscription and initial loan facilitation fee
+Monthly Churn (SHG level)
+< 0.5% — SHGs are institutional entities with regulatory mandate. Not individuals who churn on price.
+NPS Target
+> 65 — measured quarterly via in-app survey in regional languages. Industry benchmark: 45-55.
+8. RISK ANALYSIS & MITIGATION
+Risk Category
+Risk Description & Mitigation Strategy
+Technology Risk: Connectivity
+Rural India's 2G/4G coverage is patchy. Mitigation: Offline-first architecture (Flutter + SQLite). Core features function without internet. SMS fallback for critical alerts. Tested on 2G networks in UP/Bihar field conditions.
+Technology Risk: Low-Literacy Users
+SHG members may struggle with smartphones. Mitigation: Voice UI (Sakhi), icon-first design, field officer onboarding assistance, IVR fallback, WhatsApp-based lightweight version for non-smartphone users.
+Regulatory Risk: RBI
+RBI may tighten digital lending regulations. Mitigation: Loan facilitation model (not direct lending) reduces regulatory exposure. Ongoing legal counsel. Account Aggregator framework ensures compliance.
+Regulatory Risk: DPDP Act
+New data privacy law creates compliance obligations. Mitigation: Privacy-by-design architecture, data minimisation, consent management built from Day 1. DPO appointed in Year 1.
+Market Risk: NRLM Competition
+Government may build competing platform. Mitigation: Current NRLM MIS (Sangam) is 15 years old, critically under-resourced, and cannot be upgraded to a modern platform. Govt likely to partner, not compete.
+Market Risk: Low Smartphone Penetration
+20-30% of SHG members in deep rural may not own smartphones. Mitigation: SHG secretary acts as digital proxy — one smartphone per group for financial operations. Individual features delivered via WhatsApp + USSD (Phase 2).
+Financial Risk: Loan NPA
+SHGs we facilitate loans for may default, damaging bank relationships. Mitigation: SHG Credit Score vets quality before application. We only facilitate, not guarantee. NPA risk carried by bank.
+Operational Risk: Field Team Quality
+Poor field implementation destroys trust. Mitigation: 2-week intensive training program for field officers. Regional language materials. 30-day handholding for each new SHG onboarded.
+Competitive Risk: Big Tech Entry
+Google, Meta, or NPCI may build competing tools. Mitigation: Data moat + institutional relationships are our primary defence. Platform SHG Credit Score standard is irreplicable quickly. First-mover advantage in government partnerships.
+9. SOCIAL IMPACT FRAMEWORK
+Setu SHG OS is a for-profit enterprise with a deeply embedded social mission. Social impact is not a CSR add-on — it is our core value proposition and the primary reason institutions (government, NGOs, impact investors) partner with us. We track and report impact using IRIS+ and SDG-aligned metrics.
+9.1 SDG Alignment
+UN SDG Goal
+Setu SHG OS Contribution
+SDG 1: No Poverty
+Credit access, scheme linkage, and marketplace income generation directly increase household income above poverty threshold. Target: 2M women above poverty line by Year 5.
+SDG 4: Quality Education
+Learning Academy delivers free/affordable vocational and financial education in 12 languages. Target: 50M course completions by Year 5.
+SDG 5: Gender Equality
+Platform exclusively serves women leaders and members. Financial independence, digital literacy, and market access are core empowerment metrics.
+SDG 8: Decent Work & Economic Growth
+Marketplace enables women artisans and producers to earn fair market prices. Direct income impact: ₹10,000–₹50,000 additional annual income per active seller.
+SDG 10: Reduced Inequalities
+Bridges the rural-urban digital divide. Brings national market access and formal finance to women in the most marginalised districts.
+SDG 17: Partnerships for Goals
+Multi-stakeholder platform: Government + Banks + NGOs + Corporates + SHGs collaborating on a shared digital infrastructure.
+9.2 Impact Measurement Framework
+Impact Metric
+Measurement Method
+Year 5 Target
+Women with improved income
+Pre/post income survey (6-month intervals)
+5 Million women
+First-time bank account holders
+Bank account opening events tracked
+2 Million women
+First-time formal loan recipients
+Loan disbursement records
+3 Million SHG groups
+Digital literacy certifications
+Platform certification issuance
+10 Million certificates
+Govt schemes successfully accessed
+Scheme disbursement confirmation
+5 Million applications
+Carbon footprint reduction
+Digitisation vs. paper-based systems
+500 Metric tonnes paper saved
+9.3 Impact Investor Positioning
+B2 Category Impact: Financial inclusion + gender equality + livelihood creation — qualifies for DFI (IFC, ADB, DEG) concessional funding
+Blended Finance: Social impact grants from Omidyar Network, Gates Foundation, or government SIDBI SFMS can de-risk commercial capital
+ESG Integration: Platform generates verifiable ESG impact data for corporate buyers' supply chain reporting
+SEBI Social Stock Exchange: Platform could list on Social Stock Exchange for impact capital — India's new instrument for social enterprises
+10. IMPLEMENTATION ROADMAP
+Quarter
+Business Milestones
+Key Success Criteria
+Q1 (Month 1–3)
+Team hired, MVP built, 1 NGO partner signed, 100 SHG pilot launched in UP
+80%+ DAU, NPS > 55, zero critical bugs
+Q2 (Month 4–6)
+1,000 SHGs onboarded, first bank MoU, UP NRLM pilot signed, ₹1 Crore first loans
+Loan repayment rate >95%, 50 sellers active
+Q3 (Month 7–9)
+3 states, 5,000 SHGs, ₹10 Crore loans, 1,000 marketplace sellers, ARR ₹1 Crore
+MAU >50K, CAC < ₹200, gross margin >60%
+Q4 (Month 10–12)
+10,000 SHGs, ₹50 Crore loans, Series A materials ready, 5,000 marketplace sellers, ARR ₹4 Crore
+NPS >65, ARR growth >30% MoM, 3 bank partners
+Year 2 (Month 13–24)
+1,00,000 SHGs, 10 states, ₹500 Crore loans, government dashboard live, ARR ₹20 Crore
+LTV:CAC >40, churn <0.5%, Series A closed
+Year 3 (Month 25–36)
+5,00,000 SHGs, 20 states, ₹5,000 Crore loans, SHG Credit Score adopted by 5+ banks, ARR ₹100 Crore
+EBITDA positive, Series B, market leadership
+10.1 Team Requirements
+Role
+Hire Priority & Justification
+CTO / VP Engineering
+Immediate — leads Flutter, backend, AI architecture. Must have experience with offline-first mobile apps and fintech at scale.
+Product Manager (SHG Domain)
+Month 1 — drives PRD → development translation. Hindi-speaking, rural India field experience preferred.
+2× Flutter Developers
+Month 1 — mobile-first product. Senior developers with BLoC/offline-first experience.
+2× Node.js Backend Engineers
+Month 1 — NestJS microservices. Fintech experience (payment APIs, security).
+AI/ML Engineer
+Month 2 — LLM integration, RAG pipeline, recommendation engine. NLP with Indian languages experience.
+Regional Operations Manager (UP)
+Month 1 — ground team management, NGO relationships, field officer training.
+10× Field Implementation Officers
+Month 2 — SHG onboarding, training, support. Hindi-speaking, rural India posting.
+Business Development (Banks/NGOs)
+Month 2 — institutional partnership sales. Financial sector relationship experience.
+Legal & Compliance Officer
+Month 2 — DPDP, RBI, UIDAI compliance management. Fintech regulatory experience.
+UX Designer (Inclusive Design)
+Month 1 — literacy-adaptive, multilingual UI. Research background with low-literacy users essential.
+— END OF BUSINESS REQUIREMENTS DOCUMENT —
+For partnership discussions, investment enquiries, or government collaboration — contact: founders@setu-shg.in
+
