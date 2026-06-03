@@ -118,14 +118,17 @@ export default async function DashboardPage() {
   let enrolledSkills = 0;
   let pendingGrants = 0;
   let upcomingMeetings = 0;
+  let nextMeetingDate: string | null = null;
+  let myLoanOutstanding = 0;
 
   if (member?.shg_id) {
-    const [savAcc, loans, skills, grants, meetings] = await Promise.all([
+    const [savAcc, loans, skills, grants, meetings, myLoans] = await Promise.all([
       supabase.from("savings_accounts").select("balance").eq("shg_id", member.shg_id).is("member_id", null).single(),
       supabase.from("loans").select("id, outstanding_principal, status").eq("shg_id", member.shg_id).eq("status", "ACTIVE"),
       supabase.from("skill_enrollments").select("id").eq("member_id", member.id),
       supabase.from("grant_applications").select("id").eq("shg_id", member.shg_id).in("status", ["APPLIED", "UNDER_REVIEW"]),
-      supabase.from("meetings").select("id").eq("shg_id", member.shg_id).eq("status", "SCHEDULED"),
+      supabase.from("meetings").select("id, meeting_date").eq("shg_id", member.shg_id).eq("status", "SCHEDULED").gte("meeting_date", new Date().toISOString()).order("meeting_date").limit(1),
+      supabase.from("loans").select("outstanding_principal").eq("member_id", member.id).eq("status", "ACTIVE"),
     ]);
 
     savingsBalance = Number(savAcc.data?.balance ?? 0);
@@ -134,6 +137,8 @@ export default async function DashboardPage() {
     enrolledSkills = skills.data?.length ?? 0;
     pendingGrants = grants.data?.length ?? 0;
     upcomingMeetings = meetings.data?.length ?? 0;
+    nextMeetingDate = meetings.data?.[0]?.meeting_date ?? null;
+    myLoanOutstanding = (myLoans.data ?? []).reduce((s: number, l: any) => s + Number(l.outstanding_principal), 0);
   }
 
   return (
@@ -204,7 +209,7 @@ export default async function DashboardPage() {
                     )}
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3 flex-shrink-0">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 flex-shrink-0">
                   <div className="bg-white/10 rounded-2xl px-4 py-3 text-center backdrop-blur-sm">
                     <div className="text-2xl font-bold">₹{(savingsBalance / 1000).toFixed(1)}K</div>
                     <div className="text-white/50 text-xs">Group Savings</div>
@@ -212,6 +217,10 @@ export default async function DashboardPage() {
                   <div className="bg-white/10 rounded-2xl px-4 py-3 text-center backdrop-blur-sm">
                     <div className="text-2xl font-bold">{activeLoansCount}</div>
                     <div className="text-white/50 text-xs">Active Loans</div>
+                  </div>
+                  <div className="bg-white/10 rounded-2xl px-4 py-3 text-center backdrop-blur-sm">
+                    <div className="text-2xl font-bold">{myLoanOutstanding > 0 ? `₹${(myLoanOutstanding/1000).toFixed(1)}K` : "—"}</div>
+                    <div className="text-white/50 text-xs">My Outstanding</div>
                   </div>
                 </div>
               </div>

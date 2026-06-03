@@ -3,266 +3,223 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
-import { Plus, Trash2, ArrowLeft, Save, Loader2, Sparkles } from "lucide-react";
+import {
+  ArrowLeft, Plus, Trash2, Save, Loader2, Type, Hash,
+  List, ToggleLeft, MapPin, CheckSquare
+} from "lucide-react";
+
+type FieldType = "text" | "number" | "select" | "yes_no" | "gps" | "textarea" | "date";
 
 interface FormField {
   name: string;
   label: string;
-  type: string;
+  type: FieldType;
   required: boolean;
-  options?: string[];
-  optionsText?: string; // used temporarily in form builder
+  options?: string;
 }
 
-export default function NewSurveyFormPage() {
+const FIELD_TYPES: { value: FieldType; label: string; icon: any; desc: string }[] = [
+  { value: "text", label: "Short Text", icon: Type, desc: "Single line answer" },
+  { value: "textarea", label: "Long Text", icon: Type, desc: "Multi-line paragraph" },
+  { value: "number", label: "Number", icon: Hash, desc: "Numeric value" },
+  { value: "select", label: "Dropdown", icon: List, desc: "Choose one option" },
+  { value: "yes_no", label: "Yes / No", icon: ToggleLeft, desc: "Boolean question" },
+  { value: "date", label: "Date", icon: CheckSquare, desc: "Date picker" },
+  { value: "gps", label: "GPS Location", icon: MapPin, desc: "Capture coordinates" },
+];
+
+export default function NewSurveyPage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fields, setFields] = useState<FormField[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const addField = () => {
-    setFields((prev) => [
-      ...prev,
-      {
-        name: `field_${Date.now()}`,
-        label: "",
-        type: "text",
-        required: true,
-        optionsText: "",
-      },
-    ]);
+  const addField = (type: FieldType) => {
+    setFields(prev => [...prev, {
+      name: `field_${Date.now()}`,
+      label: "",
+      type,
+      required: false,
+      options: type === "select" ? "Option 1\nOption 2\nOption 3" : undefined,
+    }]);
   };
 
-  const removeField = (index: number) => {
-    setFields((prev) => prev.filter((_, i) => i !== index));
+  const updateField = (idx: number, updates: Partial<FormField>) => {
+    setFields(prev => prev.map((f, i) => i === idx ? { ...f, ...updates } : f));
   };
 
-  const updateField = (index: number, key: keyof FormField, value: any) => {
-    setFields((prev) => {
-      const copy = [...prev];
-      copy[index] = { ...copy[index], [key]: value };
-      
-      // Auto-generate name from label if label changes
-      if (key === "label") {
-        copy[index].name = value
-          .toLowerCase()
-          .replace(/[^a-z0-9_]+/g, "_")
-          .replace(/^_+|_+$/g, "") || `field_${Date.now()}`;
-      }
-      return copy;
-    });
+  const removeField = (idx: number) => {
+    setFields(prev => prev.filter((_, i) => i !== idx));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title) {
-      setError("Please specify a form title.");
-      return;
-    }
-    if (fields.length === 0) {
-      setError("Please add at least one question field to the form.");
-      return;
-    }
+  const moveField = (idx: number, dir: -1 | 1) => {
+    const next = idx + dir;
+    if (next < 0 || next >= fields.length) return;
+    const arr = [...fields];
+    [arr[idx], arr[next]] = [arr[next], arr[idx]];
+    setFields(arr);
+  };
 
-    setLoading(true);
+  const handleSave = async () => {
+    if (!title.trim()) { setError("Please enter a form title."); return; }
+    if (fields.length === 0) { setError("Please add at least one question."); return; }
+    const emptyLabels = fields.filter(f => !f.label.trim());
+    if (emptyLabels.length > 0) { setError("All questions must have a label."); return; }
+
+    setSaving(true);
     setError("");
-
-    // Prepare fields for Supabase JSON structure
-    const formattedFields = fields.map((f) => {
-      const fieldData: any = {
-        name: f.name,
-        label: f.label || "Untitled Question",
-        type: f.type,
-        required: f.required,
-      };
-      if (f.type === "select" && f.optionsText) {
-        fieldData.options = f.optionsText
-          .split(",")
-          .map((o) => o.trim())
-          .filter(Boolean);
-      }
-      return fieldData;
-    });
-
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { router.push("/login"); return; }
 
-    const { error: insertErr } = await supabase.from("survey_forms").insert({
+    const parsedFields = fields.map(f => ({
+      name: f.label.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, ""),
+      label: f.label,
+      type: f.type,
+      required: f.required,
+      options: f.options ? f.options.split("\n").map(o => o.trim()).filter(Boolean) : undefined,
+    }));
+
+    const { error: saveErr } = await supabase.from("survey_forms").insert({
       title,
       description,
-      fields: formattedFields,
-      created_by: user?.id || null,
+      fields: parsedFields,
+      created_by: user.id,
     });
 
-    if (insertErr) {
-      setError(insertErr.message);
-      setLoading(false);
-    } else {
-      router.push("/surveys");
-    }
+    if (saveErr) { setError(saveErr.message); setSaving(false); return; }
+    router.push("/surveys");
   };
 
   return (
-    <div className="min-h-screen bg-[#fcf9f2] pb-16">
-      <div className="bg-[#306e46] text-white py-8 px-6 md:px-12 shadow-sm rounded-b-[2rem] mb-8">
+    <div className="min-h-screen bg-[#fcf9f2] pb-20">
+      <div className="bg-[#306e46] text-white py-6 px-6 rounded-b-[2rem] shadow-md">
         <div className="max-w-3xl mx-auto">
-          <button
-            onClick={() => router.push("/surveys")}
-            className="flex items-center gap-2 text-emerald-100 hover:text-white mb-3 text-sm font-semibold transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" /> Cancel & Go Back
+          <button onClick={() => router.push("/surveys")} className="flex items-center gap-2 text-emerald-100 hover:text-white mb-3 text-sm font-semibold">
+            <ArrowLeft className="h-4 w-4" /> Back to Surveys
           </button>
-          <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-2.5">
-            <Sparkles className="h-7 w-7 text-[#f28c28]" /> Design Survey Form
-          </h1>
-          <p className="text-emerald-100 text-sm mt-1">Create customized baseline, auditing, or dynamic forms for field operations.</p>
+          <h1 className="text-2xl font-extrabold">Design New Form</h1>
+          <p className="text-emerald-100 text-sm mt-1">Build a custom data collection form for field use.</p>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 mt-6 space-y-5">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 text-sm rounded-2xl">
-            {error}
+          <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-2xl text-xs font-semibold">{error}</div>
+        )}
+
+        {/* Form metadata */}
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 space-y-4">
+          <div>
+            <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Form Title *</label>
+            <input
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              placeholder="e.g., Household Baseline Survey"
+              className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] font-bold text-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Description</label>
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              rows={2}
+              placeholder="What is this form for? Who should fill it?"
+              className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-sm resize-none"
+            />
+          </div>
+        </div>
+
+        {/* Field list */}
+        {fields.length > 0 && (
+          <div className="space-y-3">
+            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Questions ({fields.length})</h2>
+            {fields.map((field, idx) => {
+              const FieldIcon = FIELD_TYPES.find(t => t.value === field.type)?.icon || Type;
+              return (
+                <div key={idx} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-7 w-7 rounded-lg bg-[#306e46]/10 flex items-center justify-center flex-shrink-0">
+                      <FieldIcon className="h-4 w-4 text-[#306e46]" />
+                    </div>
+                    <span className="text-xs font-bold text-gray-400 uppercase">{FIELD_TYPES.find(t => t.value === field.type)?.label}</span>
+                    <div className="flex items-center gap-1 ml-auto">
+                      <button onClick={() => moveField(idx, -1)} disabled={idx === 0} className="h-6 w-6 rounded-lg border border-gray-200 text-gray-400 hover:text-gray-600 disabled:opacity-30 flex items-center justify-center text-xs">↑</button>
+                      <button onClick={() => moveField(idx, 1)} disabled={idx === fields.length - 1} className="h-6 w-6 rounded-lg border border-gray-200 text-gray-400 hover:text-gray-600 disabled:opacity-30 flex items-center justify-center text-xs">↓</button>
+                      <button onClick={() => removeField(idx)} className="h-6 w-6 rounded-lg bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 flex items-center justify-center">
+                        <Trash2 className="h-3 w-3" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <input
+                    type="text"
+                    value={field.label}
+                    onChange={e => updateField(idx, { label: e.target.value })}
+                    placeholder="Question label *"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-sm font-semibold mb-2"
+                  />
+
+                  {field.type === "select" && (
+                    <div>
+                      <label className="block text-[10px] text-gray-400 font-bold uppercase mb-1">Options (one per line)</label>
+                      <textarea
+                        value={field.options}
+                        onChange={e => updateField(idx, { options: e.target.value })}
+                        rows={3}
+                        className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-xs resize-none"
+                      />
+                    </div>
+                  )}
+
+                  <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={field.required}
+                      onChange={e => updateField(idx, { required: e.target.checked })}
+                      className="rounded"
+                    />
+                    <span className="text-xs text-gray-500 font-semibold">Required field</span>
+                  </label>
+                </div>
+              );
+            })}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Header Info */}
-          <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm space-y-4">
-            <h2 className="text-lg font-bold text-gray-900">Form General Details</h2>
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Form Title *</label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., Socioeconomic Baseline Survey"
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Description / Purpose</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Explain the purpose of this data collection..."
-                rows={3}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-sm"
-              />
-            </div>
-          </div>
-
-          {/* Form Fields builder */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-gray-900">Form Questions ({fields.length})</h2>
+        {/* Add field buttons */}
+        <div className="bg-white rounded-3xl border border-dashed border-gray-200 p-5">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Add Question</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {FIELD_TYPES.map(ft => (
               <button
-                type="button"
-                onClick={addField}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#306e46] text-[#306e46] hover:bg-emerald-50 font-bold text-xs transition-colors"
+                key={ft.value}
+                onClick={() => addField(ft.value)}
+                className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-600 hover:border-[#306e46] hover:text-[#306e46] hover:bg-[#306e46]/5 transition-colors text-left"
               >
-                <Plus className="h-3.5 w-3.5" /> Add Question
+                <ft.icon className="h-4 w-4 flex-shrink-0" />
+                <div>
+                  <div className="font-bold">{ft.label}</div>
+                  <div className="text-[9px] text-gray-400">{ft.desc}</div>
+                </div>
               </button>
-            </div>
-
-            {fields.length === 0 ? (
-              <div className="bg-white border border-dashed border-gray-200 rounded-3xl p-10 text-center text-gray-400">
-                No questions added yet. Click "Add Question" to start building your form.
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {fields.map((field, idx) => (
-                  <div
-                    key={field.name}
-                    className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm relative group hover:border-[#306e46]/30 transition-colors"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => removeField(idx)}
-                      className="absolute top-4 right-4 text-gray-300 hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="h-4.5 w-4.5" />
-                    </button>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">Question Label / Prompt</label>
-                        <input
-                          type="text"
-                          value={field.label}
-                          onChange={(e) => updateField(idx, "label", e.target.value)}
-                          placeholder="e.g., What is your primary occupation?"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-150 focus:outline-none focus:border-[#306e46] text-sm"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">Answer Input Type</label>
-                        <select
-                          value={field.type}
-                          onChange={(e) => updateField(idx, "type", e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-150 focus:outline-none focus:border-[#306e46] bg-white text-sm"
-                        >
-                          <option value="text">Text response</option>
-                          <option value="number">Numeric entry</option>
-                          <option value="select">Multiple choice (dropdown)</option>
-                          <option value="gps">GPS Coordinates capture</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {field.type === "select" && (
-                      <div className="mt-4">
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">
-                          Multiple Choice Options (comma separated)
-                        </label>
-                        <input
-                          type="text"
-                          value={field.optionsText || ""}
-                          onChange={(e) => updateField(idx, "optionsText", e.target.value)}
-                          placeholder="Option 1, Option 2, Option 3..."
-                          className="w-full px-4 py-3 rounded-xl border border-gray-150 focus:outline-none focus:border-[#306e46] text-sm"
-                        />
-                      </div>
-                    )}
-
-                    <div className="mt-4 flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        id={`req_${field.name}`}
-                        checked={field.required}
-                        onChange={(e) => updateField(idx, "required", e.target.checked)}
-                        className="h-4 w-4 rounded border-gray-300 text-[#306e46] focus:ring-[#306e46]"
-                      />
-                      <label htmlFor={`req_${field.name}`} className="text-xs font-semibold text-gray-600 cursor-pointer">
-                        Is answering this question required?
-                      </label>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            ))}
           </div>
+        </div>
 
-          <div className="flex gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex-1 flex items-center justify-center gap-2 py-4 rounded-full bg-[#f28c28] text-white hover:bg-[#d97a20] font-bold text-sm transition-all shadow-lg shadow-[#f28c28]/20 disabled:opacity-60"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" /> Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4" /> Save Survey Template
-                </>
-              )}
-            </button>
-          </div>
-        </form>
+        {/* Save */}
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-[#306e46] text-white font-bold hover:bg-[#255737] transition-colors shadow-lg disabled:opacity-60"
+        >
+          {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+          {saving ? "Saving Form..." : `Save Form (${fields.length} questions)`}
+        </button>
       </div>
     </div>
   );

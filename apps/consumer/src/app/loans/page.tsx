@@ -1,8 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { CreditCard, Plus, AlertCircle, CheckCircle2, Clock, TrendingDown, LogOut, ChevronRight, Calendar } from "lucide-react";
+import { CreditCard, Plus, AlertCircle, CheckCircle2, Clock, TrendingDown, LogOut, ChevronRight, Calendar, XCircle } from "lucide-react";
 import LoanApplyModal from "@/components/LoanApplyModal";
+import LoanApprovalActions, { LoanDisburseButton } from "@/components/LoanApprovalActions";
 
 export default async function LoansPage() {
   const supabase = await createClient();
@@ -43,6 +44,7 @@ export default async function LoansPage() {
     CLOSED: { label: "Closed", color: "text-gray-500 bg-gray-50 border-gray-200", icon: CheckCircle2 },
     OVERDUE: { label: "Overdue", color: "text-red-600 bg-red-50 border-red-200", icon: AlertCircle },
     APPROVED: { label: "Approved", color: "text-blue-600 bg-blue-50 border-blue-200", icon: CheckCircle2 },
+    REJECTED: { label: "Rejected", color: "text-red-600 bg-red-50 border-red-200", icon: XCircle },
   };
 
   return (
@@ -149,6 +151,28 @@ export default async function LoansPage() {
                     >
                       View Repayment Schedule <ChevronRight className="h-4 w-4" />
                     </Link>
+                  )}
+
+                  {/* Leader approval actions for PENDING loans */}
+                  {member.is_leader && loan.status === "PENDING" && (
+                    <LoanApprovalActions
+                      loanId={loan.id}
+                      shgId={member.shg_id}
+                      principalAmount={Number(loan.principal_amount)}
+                    />
+                  )}
+
+                  {/* Disburse button for APPROVED loans */}
+                  {member.is_leader && loan.status === "APPROVED" && (
+                    <LoanDisburseButton
+                      loanId={loan.id}
+                      shgId={member.shg_id}
+                      principalAmount={Number(loan.principal_amount)}
+                    />
+                  )}
+
+                  {loan.status === "REJECTED" && loan.rejection_reason && (
+                    <p className="mt-3 text-xs text-red-500 border-t border-red-50 pt-3">❌ Rejected: {loan.rejection_reason}</p>
                   )}
                 </div>
               );

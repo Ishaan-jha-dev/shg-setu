@@ -8,12 +8,14 @@ import { ArrowDownLeft, ArrowUpRight, Loader2, X } from "lucide-react";
 interface Props {
   accountId: string;
   type: "DEPOSIT" | "WITHDRAWAL";
+  onSuccess?: () => void;
 }
 
-export default function SavingsDepositModal({ accountId, type }: Props) {
+export default function SavingsDepositModal({ accountId, type, onSuccess }: Props) {
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [reference, setReference] = useState("");
+  const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -36,7 +38,8 @@ export default function SavingsDepositModal({ accountId, type }: Props) {
       transaction_type: type,
       amount: Number(amount),
       reference_id: reference || null,
-      created_by: user?.id,
+      notes: notes || null,
+      recorded_by: user?.id,
     });
 
     if (txnErr) { setError(txnErr.message); setLoading(false); return; }
@@ -57,7 +60,9 @@ export default function SavingsDepositModal({ accountId, type }: Props) {
     setOpen(false);
     setAmount("");
     setReference("");
-    router.refresh();
+    setNotes("");
+    if (onSuccess) onSuccess();
+    else router.refresh();
   };
 
   return (
@@ -110,6 +115,16 @@ export default function SavingsDepositModal({ accountId, type }: Props) {
                   onChange={e => setReference(e.target.value)}
                   placeholder="e.g., RCPT-001"
                   className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] focus:ring-2 focus:ring-[#306e46]/10 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Notes <span className="text-gray-400 font-normal">(Optional)</span></label>
+                <input
+                  type="text"
+                  value={notes}
+                  onChange={e => setNotes(e.target.value)}
+                  placeholder="e.g., Monthly meeting collection"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:border-[#306e46] text-sm"
                 />
               </div>
             </div>
