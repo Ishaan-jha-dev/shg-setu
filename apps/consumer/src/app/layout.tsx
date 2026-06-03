@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import DemoSwitcher from "@/components/DemoSwitcher";
+import Sidebar from "@/components/Sidebar";
 
 export default function RootLayout({
   children,
@@ -29,9 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground relative">
+      <body className="min-h-full flex bg-[#fafaf9] text-foreground relative">
         <DemoSwitcher />
-        {children}
+        <Sidebar />
+        <div className="flex-1 flex flex-col min-h-screen w-full">
+          {children}
+        </div>
       </body>
     </html>
   );

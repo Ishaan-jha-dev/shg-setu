@@ -1,36 +1,59 @@
+"use client";
+
 import Link from "next/link";
-import { Bell, LogOut } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Bell, HelpCircle, Menu } from "lucide-react";
 
 export default function Header() {
+  const pathname = usePathname();
+  
+  // Hide on login/join
+  if (pathname === "/login" || pathname === "/join") return null;
+
   return (
-    <header className="bg-[#1a2332] text-white shrink-0">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div className="h-16 flex items-center justify-between">
-          <Link href="/dashboard" className="flex items-center gap-3 group">
-            <img 
-              src="/logo.png" 
-              alt="Setu" 
-              className="h-9 w-9 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors" 
-            />
-            <div>
-              <div className="font-bold text-lg leading-tight group-hover:text-white transition-colors">
-                Setu <span className="text-[#f28c28]">SHG</span>
-              </div>
-              <div className="text-[10px] text-white/40 tracking-widest uppercase group-hover:text-white/60 transition-colors">
-                Financial Inclusion Platform
-              </div>
-            </div>
-          </Link>
-          <div className="flex items-center gap-3">
-            <button className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors relative">
-              <Bell className="h-4 w-4 text-white" />
-            </button>
-            <form action="/auth/signout" method="post">
-              <button className="flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-white/10">
-                <LogOut className="h-4 w-4" /> Logout
-              </button>
-            </form>
+    <header className="bg-white border-b border-[#e5e7eb] sticky top-0 z-40 lg:pl-[260px]">
+      <div className="h-20 px-6 flex items-center justify-between">
+        
+        {/* Left: Mobile Menu & Logo (Visible mainly on small screens if sidebar is hidden) */}
+        <div className="flex items-center gap-4 lg:hidden">
+          <button className="text-[#6b7280] hover:text-[#111827]">
+            <Menu className="h-6 w-6" />
+          </button>
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="Setu" className="h-8 w-8" />
+            <div className="font-extrabold text-[#1a4023]">Setu SHG</div>
           </div>
+        </div>
+
+        {/* Desktop Left Spacer */}
+        <div className="hidden lg:block flex-1"></div>
+
+        {/* Right: Actions & Profile */}
+        <div className="flex items-center gap-5">
+          <button className="relative text-[#6b7280] hover:text-[#111827] transition-colors">
+            <Bell className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 h-3.5 w-3.5 bg-[#f28c28] rounded-full border-2 border-white flex items-center justify-center text-[8px] font-bold text-white">
+              3
+            </span>
+          </button>
+          
+          <button className="text-[#6b7280] hover:text-[#111827] transition-colors">
+            <HelpCircle className="h-5 w-5" />
+          </button>
+
+          <div className="h-6 w-[1px] bg-[#e5e7eb] mx-1"></div>
+
+          <form action="/auth/signout" method="post" className="flex items-center gap-3 cursor-pointer">
+            <button type="submit" className="flex items-center gap-3 text-left">
+              <div className="h-10 w-10 rounded-full bg-[#f3f4f6] border border-[#e5e7eb] overflow-hidden">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ishaan" alt="Avatar" className="h-full w-full object-cover" />
+              </div>
+              <div className="hidden sm:block">
+                <div className="text-sm font-bold text-[#111827] leading-tight">Ishaan</div>
+                <div className="text-xs text-[#6b7280] font-medium">Leader</div>
+              </div>
+            </button>
+          </form>
         </div>
       </div>
     </header>
