@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   PiggyBank, CreditCard, TrendingUp, BookOpen, Globe, Users, Calendar,
-  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList, Scale
+  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList, Scale, BarChart2
 } from "lucide-react";
 
 const navItems = [
@@ -78,6 +78,14 @@ const navItems = [
     desc: "Balance sheet, GL ledgers & audits",
     color: "from-amber-600 to-orange-700",
     badge: "ERP",
+  },
+  {
+    href: "/impact",
+    icon: BarChart2,
+    label: "Impact Dashboard",
+    desc: "NRLM reports, SDG alignment & SHG health",
+    color: "from-[#306e46] to-emerald-700",
+    badge: "DHIS2",
   },
 ];
 
