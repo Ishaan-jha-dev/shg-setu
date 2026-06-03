@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   PiggyBank, CreditCard, TrendingUp, BookOpen, Globe, Users, Calendar,
-  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList
+  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList, Scale
 } from "lucide-react";
 
 const navItems = [
@@ -71,7 +71,16 @@ const navItems = [
     color: "from-emerald-600 to-teal-700",
     badge: "ODK",
   },
+  {
+    href: "/reports",
+    icon: Scale,
+    label: "Accounting Reports",
+    desc: "Balance sheet, GL ledgers & audits",
+    color: "from-amber-600 to-orange-700",
+    badge: "ERP",
+  },
 ];
+
 
 
 export default async function DashboardPage() {
