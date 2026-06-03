@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   PiggyBank, CreditCard, TrendingUp, BookOpen, Globe, Users, Calendar,
-  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield
+  ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList
 } from "lucide-react";
 
 const navItems = [
@@ -63,7 +63,16 @@ const navItems = [
     color: "from-cyan-500 to-blue-600",
     badge: null,
   },
+  {
+    href: "/surveys",
+    icon: ClipboardList,
+    label: "Surveys & Collection",
+    desc: "Offline-first field forms & audits",
+    color: "from-emerald-600 to-teal-700",
+    badge: "ODK",
+  },
 ];
+
 
 export default async function DashboardPage() {
   const supabase = await createClient();
