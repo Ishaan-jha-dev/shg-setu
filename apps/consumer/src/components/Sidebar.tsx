@@ -26,8 +26,8 @@ const SIDEBAR_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  // Hide on login/join
-  if (pathname === "/login" || pathname === "/join") return null;
+  // Hide on login/join/landing
+  if (pathname === "/login" || pathname === "/join" || pathname === "/") return null;
 
   return (
     <aside className="w-[260px] flex-shrink-0 border-r border-[#e5e7eb] bg-[#fafaf9] flex flex-col h-screen fixed left-0 top-0 overflow-y-auto hidden lg:flex">
