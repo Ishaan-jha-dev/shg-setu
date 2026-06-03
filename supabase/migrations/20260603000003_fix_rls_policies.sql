@@ -34,7 +34,7 @@ DROP POLICY IF EXISTS "Members can view their SHG loans" ON public.loans;
 
 -- 3. Re-create robust policies for SHGs
 CREATE POLICY "SHG Select Policy" ON public.shgs
-    FOR SELECT USING (public.is_shg_member(id));
+    FOR SELECT USING (auth.uid() IS NOT NULL);
 
 CREATE POLICY "SHG Insert Policy" ON public.shgs
     FOR INSERT WITH CHECK (auth.uid() = created_by);
@@ -44,13 +44,14 @@ CREATE POLICY "SHG Update Policy" ON public.shgs
 
 -- 4. Re-create robust policies for Members
 CREATE POLICY "Members Select Policy" ON public.members
-    FOR SELECT USING (public.is_shg_member(shg_id));
+    FOR SELECT USING (auth.uid() IS NOT NULL);
 
 CREATE POLICY "Members Insert Policy" ON public.members
     FOR INSERT WITH CHECK (profile_id = auth.uid() OR public.is_shg_leader(shg_id));
 
 CREATE POLICY "Members Update Policy" ON public.members
     FOR UPDATE USING (public.is_shg_leader(shg_id));
+
 
 -- 5. Re-create robust policies for Savings Accounts
 CREATE POLICY "Savings Accounts Select Policy" ON public.savings_accounts

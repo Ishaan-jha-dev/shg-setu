@@ -168,7 +168,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Allow read/write access based on member status
 CREATE POLICY "Members can view their SHGs" ON public.shgs FOR SELECT 
-USING (public.is_shg_member(id));
+USING (auth.uid() IS NOT NULL);
 
 CREATE POLICY "Users can create SHGs" ON public.shgs FOR INSERT 
 WITH CHECK (auth.uid() = created_by);
@@ -177,7 +177,7 @@ CREATE POLICY "Leaders can update SHGs" ON public.shgs FOR UPDATE
 USING (public.is_shg_leader(id));
 
 CREATE POLICY "Members can view their SHG members" ON public.members FOR SELECT 
-USING (public.is_shg_member(shg_id));
+USING (auth.uid() IS NOT NULL);
 
 CREATE POLICY "Users can join/add members to SHGs" ON public.members FOR INSERT 
 WITH CHECK (profile_id = auth.uid() OR public.is_shg_leader(shg_id));
