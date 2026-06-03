@@ -145,6 +145,7 @@ export default function MeetingCollectionPage() {
         meeting_id: meetingId,
         member_id: r.memberId,
         is_present: r.present,
+        attended: r.present,            // keep legacy column in sync
         collected_amount: Number(r.collectedAmount) || 0,
         is_collection_done: (Number(r.collectedAmount) || 0) > 0,
         notes: r.notes,
