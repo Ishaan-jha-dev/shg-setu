@@ -142,15 +142,58 @@ ALTER TABLE public.members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.savings_accounts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.loans ENABLE ROW LEVEL SECURITY;
 
--- Allow read access to SHG members
+-- Helper functions to prevent recursion
+CREATE OR REPLACE FUNCTION public.is_shg_member(shg_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.members 
+    WHERE shg_id = shg_uuid 
+      AND profile_id = auth.uid()
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION public.is_shg_leader(shg_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.members 
+    WHERE shg_id = shg_uuid 
+      AND profile_id = auth.uid() 
+      AND is_leader = true
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Allow read/write access based on member status
 CREATE POLICY "Members can view their SHGs" ON public.shgs FOR SELECT 
-USING (EXISTS (SELECT 1 FROM public.members WHERE members.shg_id = shgs.id AND members.profile_id = auth.uid()));
+USING (public.is_shg_member(id));
+
+CREATE POLICY "Users can create SHGs" ON public.shgs FOR INSERT 
+WITH CHECK (auth.uid() = created_by);
+
+CREATE POLICY "Leaders can update SHGs" ON public.shgs FOR UPDATE 
+USING (public.is_shg_leader(id));
 
 CREATE POLICY "Members can view their SHG members" ON public.members FOR SELECT 
-USING (EXISTS (SELECT 1 FROM public.members m2 WHERE m2.shg_id = members.shg_id AND m2.profile_id = auth.uid()));
+USING (public.is_shg_member(shg_id));
+
+CREATE POLICY "Users can join/add members to SHGs" ON public.members FOR INSERT 
+WITH CHECK (profile_id = auth.uid() OR public.is_shg_leader(shg_id));
+
+CREATE POLICY "Leaders can update members" ON public.members FOR UPDATE 
+USING (public.is_shg_leader(shg_id));
 
 CREATE POLICY "Members can view their SHG savings" ON public.savings_accounts FOR SELECT 
-USING (EXISTS (SELECT 1 FROM public.members WHERE members.shg_id = savings_accounts.shg_id AND members.profile_id = auth.uid()));
+USING (public.is_shg_member(shg_id));
+
+CREATE POLICY "Leaders can manage savings accounts" ON public.savings_accounts FOR ALL 
+USING (public.is_shg_leader(shg_id));
 
 CREATE POLICY "Members can view their SHG loans" ON public.loans FOR SELECT 
-USING (EXISTS (SELECT 1 FROM public.members WHERE members.shg_id = loans.shg_id AND members.profile_id = auth.uid()));
+USING (public.is_shg_member(shg_id));
+
+CREATE POLICY "Members/Leaders can manage loans" ON public.loans FOR ALL 
+USING (profile_id = auth.uid() OR public.is_shg_leader(shg_id));
+
