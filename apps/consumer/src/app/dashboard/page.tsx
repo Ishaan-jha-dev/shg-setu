@@ -6,6 +6,7 @@ import {
   PiggyBank, CreditCard, TrendingUp, BookOpen, Globe, Users, Calendar,
   ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList, Scale, BarChart2
 } from "lucide-react";
+import Header from "@/components/Header";
 
 const memberItems = [
   {
@@ -154,30 +155,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#f4f6f8]">
-      {/* Sidebar-style top header */}
-      <header className="bg-[#1a2332] text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <div className="h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="Setu" className="h-9 w-9 rounded-full border-2 border-white/20" />
-              <div>
-                <div className="font-bold text-lg leading-tight">Setu <span className="text-[#f28c28]">SHG</span></div>
-                <div className="text-[10px] text-white/40 tracking-widest uppercase">Financial Inclusion Platform</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors relative">
-                <Bell className="h-4 w-4 text-white" />
-              </button>
-              <form action="/auth/signout" method="post">
-                <button className="flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-white/10">
-                  <LogOut className="h-4 w-4" /> Logout
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-8">
 
@@ -255,32 +233,34 @@ export default async function DashboardPage() {
         )}
 
         {/* Member Services Grid */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold text-[#1a1a1a] mb-5">My Services</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {memberItems.map((item) => (
-              <Link
-                key={item.href}
-                href={isJoined ? item.href : "/join"}
-                className="group bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
-              >
-                {item.badge && (
-                  <div className="absolute top-4 right-4 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#f28c28] text-white uppercase tracking-wider">
-                    {item.badge}
+        {demoRole !== "leader" && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-[#1a1a1a] mb-5">My Services</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {memberItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={isJoined ? item.href : "/join"}
+                  className="group bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                >
+                  {item.badge && (
+                    <div className="absolute top-4 right-4 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#f28c28] text-white uppercase tracking-wider">
+                      {item.badge}
+                    </div>
+                  )}
+                  <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className="h-6 w-6 text-white" />
                   </div>
-                )}
-                <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <item.icon className="h-6 w-6 text-white" />
-                </div>
-                <div className="font-bold text-[#1a1a1a] mb-1 group-hover:text-[#306e46] transition-colors">{item.label}</div>
-                <div className="text-sm text-gray-500 leading-relaxed">{item.desc}</div>
-                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-gray-400 group-hover:text-[#306e46] transition-colors">
-                  Open <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </Link>
-            ))}
+                  <div className="font-bold text-[#1a1a1a] mb-1 group-hover:text-[#306e46] transition-colors">{item.label}</div>
+                  <div className="text-sm text-gray-500 leading-relaxed">{item.desc}</div>
+                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-gray-400 group-hover:text-[#306e46] transition-colors">
+                    Open <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Leader Tools Grid */}
         {isLeader && (

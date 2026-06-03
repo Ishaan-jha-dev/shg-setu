@@ -3,8 +3,9 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   ShieldCheck, Building, Users, PiggyBank,
-  Landmark, ArrowRight, TrendingUp, AlertTriangle, LogOut
+  Landmark, ArrowRight, TrendingUp, AlertTriangle, LogOut, Bell
 } from "lucide-react";
+import Header from "@/components/Header";
 
 export default async function AuthorityDashboardPage() {
   const supabase = await createClient();
@@ -36,27 +37,7 @@ export default async function AuthorityDashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#f4f6f8]">
-      {/* Header */}
-      <header className="bg-slate-900 text-white">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/50">
-                <ShieldCheck className="h-5 w-5 text-indigo-400" />
-              </div>
-              <div>
-                <div className="font-bold text-lg leading-tight">Authority Portal</div>
-                <div className="text-[10px] text-white/40 tracking-widest uppercase">Setu Financial Oversight</div>
-              </div>
-            </div>
-            <form action="/auth/signout" method="post">
-              <button className="flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-white/10">
-                <LogOut className="h-4 w-4" /> Logout
-              </button>
-            </form>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="container mx-auto px-4 max-w-6xl py-8 space-y-8">
         

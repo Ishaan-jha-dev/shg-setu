@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Building, MapPin, Users, PiggyBank, Search } from "lucide-react";
+import Header from "@/components/Header";
 
 export default async function SHGDirectoryPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const sp = await searchParams;
@@ -29,8 +30,9 @@ export default async function SHGDirectoryPage({ searchParams }: { searchParams:
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f6f8] pb-20">
-      {/* Header */}
+    <div className="min-h-screen bg-[#f4f6f8]">
+      <Header />
+      {/* Sub Header */}
       <div className="bg-slate-900 text-white py-8 px-6 shadow-md">
         <div className="max-w-5xl mx-auto">
           <Link href="/authority" className="flex items-center gap-2 text-indigo-400 hover:text-white mb-4 text-sm font-semibold transition-colors w-fit">
