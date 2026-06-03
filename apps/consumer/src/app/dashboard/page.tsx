@@ -6,37 +6,21 @@ import {
   ArrowRight, LogOut, ChevronRight, Bell, Wallet, Award, Shield, ClipboardList, Scale, BarChart2
 } from "lucide-react";
 
-const navItems = [
+const memberItems = [
   {
     href: "/savings",
     icon: PiggyBank,
-    label: "Savings Ledger",
-    desc: "Deposits, withdrawals & group pool",
+    label: "My Savings",
+    desc: "Personal deposits and passbook",
     color: "from-emerald-500 to-teal-600",
     badge: null,
   },
   {
     href: "/loans",
     icon: CreditCard,
-    label: "Loan Portfolio",
-    desc: "Apply, track & repay loans",
+    label: "My Loans",
+    desc: "Apply and track personal loans",
     color: "from-blue-500 to-indigo-600",
-    badge: null,
-  },
-  {
-    href: "/meetings",
-    icon: Calendar,
-    label: "Meetings",
-    desc: "Schedule & collection sheet",
-    color: "from-amber-500 to-orange-500",
-    badge: null,
-  },
-  {
-    href: "/members",
-    icon: Users,
-    label: "Members",
-    desc: "View & manage group members",
-    color: "from-pink-500 to-rose-600",
     badge: null,
   },
   {
@@ -48,34 +32,53 @@ const navItems = [
     badge: "FREE",
   },
   {
-    href: "/grants",
-    icon: Award,
-    label: "Grants & Schemes",
-    desc: "Govt schemes & NGO grants",
-    color: "from-rose-500 to-pink-600",
-    badge: "NEW",
-  },
-  {
     href: "/global",
     icon: Globe,
     label: "Global Marketplace",
-    desc: "List and sell SHG products",
+    desc: "View and buy SHG products",
     color: "from-cyan-500 to-blue-600",
     badge: null,
   },
   {
     href: "/surveys",
     icon: ClipboardList,
-    label: "Surveys & Collection",
-    desc: "Offline-first field forms & audits",
+    label: "Field Surveys",
+    desc: "Offline data collection forms",
     color: "from-emerald-600 to-teal-700",
     badge: "ODK",
+  },
+];
+
+const leaderItems = [
+  {
+    href: "/meetings",
+    icon: Calendar,
+    label: "Meetings & Collections",
+    desc: "Schedule meetings & collect dues",
+    color: "from-amber-500 to-orange-500",
+    badge: "ADMIN",
+  },
+  {
+    href: "/members",
+    icon: Users,
+    label: "Manage Members",
+    desc: "Activate or promote members",
+    color: "from-pink-500 to-rose-600",
+    badge: "ADMIN",
+  },
+  {
+    href: "/grants",
+    icon: Award,
+    label: "Grants & Schemes",
+    desc: "Apply for Gov/NGO grants",
+    color: "from-rose-500 to-pink-600",
+    badge: "NEW",
   },
   {
     href: "/reports",
     icon: Scale,
     label: "Accounting Reports",
-    desc: "Balance sheet, GL ledgers & audits",
+    desc: "Balance sheet & GL ledgers",
     color: "from-amber-600 to-orange-700",
     badge: "ERP",
   },
@@ -83,7 +86,7 @@ const navItems = [
     href: "/impact",
     icon: BarChart2,
     label: "Impact Dashboard",
-    desc: "NRLM reports, SDG alignment & SHG health",
+    desc: "NRLM reports & SHG health",
     color: "from-[#306e46] to-emerald-700",
     badge: "DHIS2",
   },
@@ -243,11 +246,11 @@ export default async function DashboardPage() {
           </>
         )}
 
-        {/* Main Navigation Grid */}
-        <div>
-          <h2 className="text-xl font-bold text-[#1a1a1a] mb-5">Platform Services</h2>
+        {/* Member Services Grid */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-[#1a1a1a] mb-5">My Services</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {navItems.map((item) => (
+            {memberItems.map((item) => (
               <Link
                 key={item.href}
                 href={isJoined ? item.href : "/join"}
@@ -270,6 +273,38 @@ export default async function DashboardPage() {
             ))}
           </div>
         </div>
+
+        {/* Leader Tools Grid */}
+        {member?.is_leader && (
+          <div>
+            <h2 className="text-xl font-bold text-[#1a1a1a] mb-5 flex items-center gap-2">
+              <Shield className="h-5 w-5 text-[#f28c28]" /> Leader Portal
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {leaderItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={isJoined ? item.href : "/join"}
+                  className="group bg-white rounded-3xl p-6 border border-[#f28c28]/20 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                >
+                  {item.badge && (
+                    <div className="absolute top-4 right-4 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#f28c28] text-white uppercase tracking-wider">
+                      {item.badge}
+                    </div>
+                  )}
+                  <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="font-bold text-[#1a1a1a] mb-1 group-hover:text-[#f28c28] transition-colors">{item.label}</div>
+                  <div className="text-sm text-gray-500 leading-relaxed">{item.desc}</div>
+                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-gray-400 group-hover:text-[#f28c28] transition-colors">
+                    Manage <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Join CTA if not joined */}
         {!isJoined && (
