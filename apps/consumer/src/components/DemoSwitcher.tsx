@@ -37,38 +37,49 @@ export default function DemoSwitcher() {
   if (pathname === "/login" || pathname === "/join") return null;
 
   return (
-    <div className="bg-[#1e293b] border-b border-slate-700 py-3 px-4 w-full flex justify-center z-50">
-      <div className="bg-slate-900 rounded-full p-1 flex items-center relative max-w-md w-full shadow-inner border border-slate-800">
-        
-        {/* Animated Background Slider */}
-        <div 
-          className="absolute top-1 bottom-1 w-[32.5%] bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-300 ease-out shadow-md"
-          style={{ 
-            left: role === "member" ? "1%" : role === "leader" ? "33.7%" : "66.5%",
-          }}
-        />
-
-        <button
-          onClick={() => handleSetRole("member")}
-          className={`relative z-10 flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold transition-colors rounded-full ${role === "member" ? "text-white" : "text-slate-400 hover:text-slate-200"}`}
-        >
-          <User className="h-4 w-4" /> Member
-        </button>
-
-        <button
-          onClick={() => handleSetRole("leader")}
-          className={`relative z-10 flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold transition-colors rounded-full ${role === "leader" ? "text-white" : "text-slate-400 hover:text-slate-200"}`}
-        >
-          <Crown className="h-4 w-4" /> Leader
-        </button>
-
-        <button
-          onClick={() => handleSetRole("authority")}
-          className={`relative z-10 flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold transition-colors rounded-full ${role === "authority" ? "text-white" : "text-slate-400 hover:text-slate-200"}`}
-        >
-          <Shield className="h-4 w-4" /> Authority
-        </button>
+    <div className="fixed bottom-6 right-6 z-[9999] flex items-center bg-slate-900/90 backdrop-blur-md border border-slate-700/50 p-1.5 rounded-full shadow-2xl transition-all hover:shadow-indigo-500/20 group">
+      
+      {/* Tooltip Label (Shows on hover of the pill) */}
+      <div className="absolute -top-8 right-2 bg-slate-800 text-xs text-slate-300 px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border border-slate-700">
+        Demo Persona Switcher
       </div>
+
+      <button
+        onClick={() => handleSetRole("member")}
+        title="Switch to Member"
+        className={`p-2.5 rounded-full transition-all ${
+          role === "member" 
+            ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 scale-105" 
+            : "text-slate-400 hover:text-slate-200 hover:bg-white/10"
+        }`}
+      >
+        <User className="h-4 w-4" />
+      </button>
+
+      <button
+        onClick={() => handleSetRole("leader")}
+        title="Switch to Leader"
+        className={`p-2.5 rounded-full transition-all ${
+          role === "leader" 
+            ? "bg-[#f28c28] text-white shadow-lg shadow-[#f28c28]/30 scale-105" 
+            : "text-slate-400 hover:text-slate-200 hover:bg-white/10"
+        }`}
+      >
+        <Crown className="h-4 w-4" />
+      </button>
+
+      <button
+        onClick={() => handleSetRole("authority")}
+        title="Switch to Authority"
+        className={`p-2.5 rounded-full transition-all ${
+          role === "authority" 
+            ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/30 scale-105" 
+            : "text-slate-400 hover:text-slate-200 hover:bg-white/10"
+        }`}
+      >
+        <Shield className="h-4 w-4" />
+      </button>
+      
     </div>
   );
 }
