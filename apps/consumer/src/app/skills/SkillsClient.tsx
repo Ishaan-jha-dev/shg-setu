@@ -194,7 +194,7 @@ export default function SkillsClient({ member, dbPrograms, dbEnrollments }: Skil
       };
       setEnrollments(prev => [...prev, mockEnrollment]);
       // Update selected program modal state
-      setSelectedProgram(prev => prev ? { ...prev, enrollmentStatus: "ENROLLED" } : null);
+      setSelectedProgram((prev: any) => prev ? { ...prev, enrollmentStatus: "ENROLLED" } : null);
       return;
     }
 
@@ -234,7 +234,7 @@ export default function SkillsClient({ member, dbPrograms, dbEnrollments }: Skil
       setEnrollments(prev => 
         prev.map(e => e.id === enrollmentId ? { ...e, status: "COMPLETED", completion_date: new Date().toISOString() } : e)
       );
-      setSelectedProgram(prev => prev ? { ...prev, enrollmentStatus: "COMPLETED" } : null);
+      setSelectedProgram((prev: any) => prev ? { ...prev, enrollmentStatus: "COMPLETED" } : null);
       return;
     }
 
@@ -254,7 +254,7 @@ export default function SkillsClient({ member, dbPrograms, dbEnrollments }: Skil
       setEnrollments(prev => 
         prev.map(e => e.id === enrollmentId ? { ...e, status: "COMPLETED" } : e)
       );
-      setSelectedProgram(prev => prev ? { ...prev, enrollmentStatus: "COMPLETED" } : null);
+      setSelectedProgram((prev: any) => prev ? { ...prev, enrollmentStatus: "COMPLETED" } : null);
       router.refresh();
     } catch (err: any) {
       console.error("Error completing:", err.message);
