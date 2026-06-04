@@ -58,14 +58,13 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link
-            href="/setu-shg.apk"
-            target="_blank"
-            download
+          <a
+            href="https://github.com/Ishaan-jha-dev/shg-setu/raw/main/apps/consumer/public/setu-shg.apk"
+            download="setu-shg.apk"
             className="text-sm font-bold text-[#f28c28] hover:text-[#d97c23] transition-colors flex items-center gap-1.5 px-2"
           >
             Download Mobile App
-          </Link>
+          </a>
           {!user ? (
             <Link href="/login" className="rounded-full bg-[#306e46] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#255737] transition-colors flex items-center gap-2 shadow-sm">
               Login / Register <ArrowRight className="h-4 w-4" />
@@ -104,14 +103,13 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="px-3 pt-2">
-              <Link
-                href="/setu-shg.apk"
-                target="_blank"
-                download
+              <a
+                href="https://github.com/Ishaan-jha-dev/shg-setu/raw/main/apps/consumer/public/setu-shg.apk"
+                download="setu-shg.apk"
                 className="w-full flex items-center justify-center gap-2 rounded-md bg-[#fef4ea] px-3 py-3 text-base font-bold text-[#f28c28] hover:bg-[#fde9d5]"
               >
                 Download Mobile App
-              </Link>
+              </a>
             </div>
             <div className="mt-4 px-3">
               {!user ? (
