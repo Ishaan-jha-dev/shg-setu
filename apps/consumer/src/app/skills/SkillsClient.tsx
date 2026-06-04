@@ -214,7 +214,7 @@ export default function SkillsClient({ member, dbPrograms, dbEnrollments }: Skil
 
       // Update local state
       setEnrollments(prev => [...prev, data]);
-      setSelectedProgram(prev => prev ? { ...prev, enrollmentStatus: "ENROLLED", enrollmentId: data.id } : null);
+      setSelectedProgram((prev: any) => prev ? { ...prev, enrollmentStatus: "ENROLLED", enrollmentId: data.id } : null);
       router.refresh();
     } catch (err: any) {
       console.error("Error enrolling:", err.message);
