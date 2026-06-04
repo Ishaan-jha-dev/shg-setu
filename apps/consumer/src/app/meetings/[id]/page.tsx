@@ -183,10 +183,12 @@ export default function MeetingCollectionPage() {
           const txnsWithAccount = savingsInserts.map(t => ({ ...t, account_id: pool.id }));
           await supabase.from("savings_transactions").insert(txnsWithAccount);
           // Update pool balance
-          await supabase.rpc("increment_savings_balance", {
-            p_account_id: pool.id,
-            p_amount: totalCollected,
-          }).catch(() => {}); // non-fatal if RPC doesn't exist
+          try {
+            await supabase.rpc("increment_savings_balance", {
+              p_account_id: pool.id,
+              p_amount: totalCollected,
+            });
+          } catch (e) {} // non-fatal if RPC doesn't exist
         }
       }
 

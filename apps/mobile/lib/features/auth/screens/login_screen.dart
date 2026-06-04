@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import '../../dashboard/screens/member_dashboard.dart';
 import '../../../core/routes.dart';
 
@@ -37,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: const Color(0xFF306E46).withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(LucideIcons.leaf, size: 40, color: Color(0xFF306E46)),
+                  child: const Icon(Icons.eco, size: 40, color: Color(0xFF306E46)),
                 ),
               ),
               const SizedBox(height: 24),
@@ -73,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: DropdownButton<String>(
                     value: _selectedLanguage,
                     isExpanded: true,
-                    icon: const Icon(LucideIcons.chevronDown, size: 20),
+                    icon: const Icon(Icons.expand_more, size: 20),
                     items: _languages.map((String lang) {
                       return DropdownMenuItem<String>(
                         value: lang,

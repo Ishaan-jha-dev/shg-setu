@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 class MemberDashboard extends StatefulWidget {
   const MemberDashboard({super.key});
@@ -34,10 +33,10 @@ class _MemberDashboardState extends State<MemberDashboard> {
           });
         },
         destinations: const [
-          NavigationDestination(icon: Icon(LucideIcons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(LucideIcons.bookOpen), label: 'Skills'),
-          NavigationDestination(icon: Icon(LucideIcons.handCoins), label: 'Grants'),
-          NavigationDestination(icon: Icon(LucideIcons.user), label: 'Profile'),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.menu_book), label: 'Skills'),
+          NavigationDestination(icon: Icon(Icons.volunteer_activism), label: 'Grants'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
@@ -79,7 +78,7 @@ class _HomeTab extends StatelessWidget {
               ),
               const CircleAvatar(
                 backgroundColor: Color(0xFFE9F2EB),
-                child: Icon(LucideIcons.user, color: Color(0xFF306E46)),
+                child: Icon(Icons.person, color: Color(0xFF306E46)),
               )
             ],
           ),
@@ -112,7 +111,7 @@ class _HomeTab extends StatelessWidget {
                       'Total Savings',
                       style: GoogleFonts.inter(color: Colors.white70, fontSize: 14),
                     ),
-                    const Icon(LucideIcons.wallet, color: Colors.white70, size: 20),
+                    const Icon(Icons.account_balance_wallet, color: Colors.white70, size: 20),
                   ],
                 ),
                 const SizedBox(height: 8),
