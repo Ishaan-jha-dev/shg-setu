@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight, Leaf, Users, Globe, BookOpen, HandCoins, FileText, Landmark } from "lucide-react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 const stats = [
   { label: "SHGs Empowered", value: "10,000+", icon: Users },
@@ -34,6 +36,13 @@ const features = [
 ];
 
 export default function Home() {
+  const [user, setUser] = useState<any>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
+
   return (
     <div className="flex flex-col w-full bg-[#fcf9f2] overflow-hidden">
       {/* Hero Section */}
@@ -81,12 +90,21 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
-              <Link
-                href="/login"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#306e46] text-white font-semibold text-base hover:bg-[#255737] shadow-lg shadow-[#306e46]/30 transition-all flex items-center justify-center gap-2"
-              >
-                Login to Get Started <ArrowRight className="h-5 w-5" />
-              </Link>
+              {!user ? (
+                <Link
+                  href="/login"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#306e46] text-white font-semibold text-base hover:bg-[#255737] shadow-lg shadow-[#306e46]/30 transition-all flex items-center justify-center gap-2"
+                >
+                  Login to Get Started <ArrowRight className="h-5 w-5" />
+                </Link>
+              ) : (
+                <Link
+                  href="/dashboard"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#f28c28] text-white font-semibold text-base hover:bg-[#d97c23] shadow-lg shadow-[#f28c28]/30 transition-all flex items-center justify-center gap-2"
+                >
+                  Go to Dashboard <ArrowRight className="h-5 w-5" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -96,14 +114,14 @@ export default function Home() {
       <section className="relative z-20 -mt-16 container mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         <div className="bg-[#eff5ef] rounded-[40px] px-8 py-10 shadow-sm border border-[#e1ece2]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-300/50">
-            {stats.map((stat, i) => (
+            {features.map((feature, i) => (
               <div key={i} className={`flex items-center gap-4 ${i !== 0 ? 'md:pl-8 pt-6 md:pt-0' : ''}`}>
                 <div className="h-12 w-12 rounded-full bg-[#306e46] flex items-center justify-center flex-shrink-0 text-white">
-                  <stat.icon className="h-6 w-6" />
+                  <feature.icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-[#1a1a1a]">{stat.value}</div>
-                  <div className="text-sm font-medium text-gray-600">{stat.label}</div>
+                  <div className="text-xl font-bold text-[#1a1a1a]">{feature.name}</div>
+                  <div className="text-sm font-medium text-gray-600">{feature.description}</div>
                 </div>
               </div>
             ))}

@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import { 
   Users, MapPin, Calendar, Clock, IndianRupee,
   ChevronRight, Activity, TrendingUp, HandCoins, CheckCircle2, Circle,
-  BookOpen, Wallet, BarChart2, PiggyBank, Landmark
+  BookOpen, Wallet, BarChart2, PiggyBank, Landmark, Award, ShoppingBag
 } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -200,23 +200,33 @@ export default async function DashboardPage() {
             
             {/* Quick Actions */}
             <div className="bg-white rounded-3xl border border-[#e5e7eb] p-6 shadow-sm">
-              <h2 className="text-lg font-bold text-[#111827] mb-6">Quick Actions</h2>
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-                
+              <h2 className="text-lg font-bold text-[#111827] mb-6">Core Platform Modules</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                 {[
-                  { label: "Mark\nAttendance", icon: Users, color: "text-[#2d5635]" },
-                  { label: "Record\nSavings", icon: HandCoins, color: "text-[#2d5635]" },
-                  { label: "Issue\nLoan", icon: IndianRupee, color: "text-[#2d5635]" },
-                  { label: "Record\nRepayment", icon: Wallet, color: "text-[#2d5635]" },
-                  { label: "Passbook", icon: BookOpen, color: "text-[#2d5635]" },
-                  { label: "View\nReports", icon: BarChart2, color: "text-[#2d5635]" },
+                  { label: "Savings\nLedger", href: "/savings", icon: PiggyBank, color: "text-[#2d5635]", desc: "Manage savings pool & deposits" },
+                  { label: "Loan\nPortfolio", href: "/loans", icon: HandCoins, color: "text-[#2d5635]", desc: "Track micro-loans & schedules" },
+                  { label: "Attendance &\nMeetings", href: "/meetings", icon: Calendar, color: "text-[#2d5635]", desc: "Record attendance & notes" },
+                  { label: "Financial\nReports", href: "/reports", icon: BarChart2, color: "text-[#2d5635]", desc: "Ledgers & performance analytics" },
+                  { label: "Skills &\nTraining", href: "/skills", icon: BookOpen, color: "text-[#2d5635]", desc: "Vocational & digital courses" },
+                  { label: "Grant\nOpportunities", href: "/grants", icon: Award, color: "text-[#2d5635]", desc: "Discovery & document checklist" },
+                  { label: "Global\nMarketplace", href: "/global", icon: ShoppingBag, color: "text-[#2d5635]", desc: "Buy & sell rural products" },
+                  { label: "My SHG\nImpact", href: "/impact", icon: Activity, color: "text-[#2d5635]", desc: "UN SDG & health indicators" },
+                  { label: "Member\nDirectory", href: "/members", icon: Users, color: "text-[#2d5635]", desc: "Manage profile & roles" },
+                  { label: "Household\nSurveys", href: "/surveys", icon: Clock, color: "text-[#2d5635]", desc: "Collect village demographics" },
                 ].map((action, idx) => (
-                  <button key={idx} className="flex flex-col items-center justify-center p-4 rounded-2xl border border-[#e5e7eb] hover:border-[#2d5635] hover:shadow-md transition-all group h-28">
-                    <action.icon className={`h-6 w-6 mb-3 group-hover:scale-110 transition-transform ${action.color}`} strokeWidth={1.5} />
-                    <span className="text-xs font-semibold text-[#374151] text-center whitespace-pre-line leading-tight">
+                  <Link 
+                    key={idx} 
+                    href={action.href} 
+                    className="flex flex-col items-center justify-center p-5 rounded-3xl border border-[#e5e7eb] hover:border-[#2d5635] hover:shadow-md transition-all group text-center min-h-[120px] bg-[#fafaf9]/40 hover:bg-white"
+                  >
+                    <action.icon className={`h-7 w-7 mb-3 group-hover:scale-110 transition-transform ${action.color}`} strokeWidth={1.5} />
+                    <span className="text-xs font-bold text-[#111827] leading-tight whitespace-pre-line mb-1">
                       {action.label}
                     </span>
-                  </button>
+                    <span className="text-[9px] text-[#6b7280] font-medium leading-tight max-w-[120px]">
+                      {action.desc}
+                    </span>
+                  </Link>
                 ))}
               </div>
             </div>

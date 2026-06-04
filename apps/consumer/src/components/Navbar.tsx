@@ -2,12 +2,19 @@
 
 import Link from "next/link";
 import { BookOpen, HandCoins, Globe, FileText, Menu, X, ArrowRight, Leaf } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 const navLinks: any[] = [];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-[#fcf9f2] border-b border-gray-200">
@@ -51,9 +58,22 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link href="/login" className="rounded-full bg-[#306e46] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#255737] transition-colors flex items-center gap-2 shadow-sm">
-            Login / Register <ArrowRight className="h-4 w-4" />
+          <Link
+            href="https://github.com/Ishaan-jha-dev/shg-setu/tree/main/apps/mobile"
+            target="_blank"
+            className="text-sm font-bold text-[#f28c28] hover:text-[#d97c23] transition-colors flex items-center gap-1.5 px-2"
+          >
+            Download Mobile App
           </Link>
+          {!user ? (
+            <Link href="/login" className="rounded-full bg-[#306e46] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#255737] transition-colors flex items-center gap-2 shadow-sm">
+              Login / Register <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <Link href="/dashboard" className="rounded-full bg-[#f28c28] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#d97c23] transition-colors flex items-center gap-2 shadow-sm">
+              Dashboard <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -82,10 +102,25 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <div className="mt-4 px-3">
-              <Link href="/login" onClick={() => setIsOpen(false)} className="w-full rounded-full bg-[#306e46] px-5 py-3 text-sm font-semibold text-white hover:bg-[#255737] transition-colors flex items-center justify-center gap-2 shadow-sm">
-                Login / Register <ArrowRight className="h-4 w-4" />
+            <div className="px-3 pt-2">
+              <Link
+                href="https://github.com/Ishaan-jha-dev/shg-setu/tree/main/apps/mobile"
+                target="_blank"
+                className="w-full flex items-center justify-center gap-2 rounded-md bg-[#fef4ea] px-3 py-3 text-base font-bold text-[#f28c28] hover:bg-[#fde9d5]"
+              >
+                Download Mobile App
               </Link>
+            </div>
+            <div className="mt-4 px-3">
+              {!user ? (
+                <Link href="/login" onClick={() => setIsOpen(false)} className="w-full rounded-full bg-[#306e46] px-5 py-3 text-sm font-semibold text-white hover:bg-[#255737] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                  Login / Register <ArrowRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <Link href="/dashboard" onClick={() => setIsOpen(false)} className="w-full rounded-full bg-[#f28c28] px-5 py-3 text-sm font-semibold text-white hover:bg-[#d97c23] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                  Dashboard <ArrowRight className="h-4 w-4" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
