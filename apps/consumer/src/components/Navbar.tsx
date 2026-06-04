@@ -59,8 +59,9 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="https://github.com/Ishaan-jha-dev/shg-setu/tree/main/apps/mobile"
+            href="/setu-shg.apk"
             target="_blank"
+            download
             className="text-sm font-bold text-[#f28c28] hover:text-[#d97c23] transition-colors flex items-center gap-1.5 px-2"
           >
             Download Mobile App
@@ -104,8 +105,9 @@ export default function Navbar() {
             ))}
             <div className="px-3 pt-2">
               <Link
-                href="https://github.com/Ishaan-jha-dev/shg-setu/tree/main/apps/mobile"
+                href="/setu-shg.apk"
                 target="_blank"
+                download
                 className="w-full flex items-center justify-center gap-2 rounded-md bg-[#fef4ea] px-3 py-3 text-base font-bold text-[#f28c28] hover:bg-[#fde9d5]"
               >
                 Download Mobile App

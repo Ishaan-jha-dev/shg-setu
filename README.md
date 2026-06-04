@@ -8,7 +8,7 @@ An all-in-one digital ecosystem built to empower Self-Help Groups (SHGs) across 
 
 We understand that mobile phones are the primary way rural women access the internet. A dedicated **Flutter (Dart) Mobile Application** has been developed to ensure the Setu platform is accessible at the grassroots level.
 
-👉 **[DOWNLOAD THE MOBILE APP HERE](https://github.com/Ishaan-jha-dev/shg-setu/tree/main/apps/mobile)** 👈
+👉 **[DOWNLOAD THE MOBILE APP HERE](https://github.com/Ishaan-jha-dev/shg-setu/raw/main/apps/consumer/public/setu-shg.apk)** 👈
 
 **Key Mobile Features:**
 - **Multilingual Support:** Select from 12 Indian languages right from the login screen.
