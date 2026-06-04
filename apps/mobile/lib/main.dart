@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'core/routes.dart';
+import 'providers/auth_provider.dart';
+import 'providers/shg_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Try loading dotenv, if it fails, continue without it (for testing UI)
   try {
     await dotenv.load(fileName: ".env");
     await Supabase.initialize(
@@ -18,7 +20,15 @@ Future<void> main() async {
     debugPrint("Failed to initialize Supabase/dotenv: $e");
   }
 
-  runApp(const SetuApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ShgProvider()),
+      ],
+      child: const SetuApp(),
+    ),
+  );
 }
 
 class SetuApp extends StatelessWidget {

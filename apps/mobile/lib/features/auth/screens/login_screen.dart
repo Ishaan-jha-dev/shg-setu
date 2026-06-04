@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../dashboard/screens/member_dashboard.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/routes.dart';
+import '../../../core/localization.dart';
+import '../../../providers/auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,11 +16,82 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String _selectedLanguage = 'English';
-  final List<String> _languages = ['English', 'हिंदी (Hindi)', 'मराठी (Marathi)', 'தமிழ் (Tamil)', 'తెలుగు (Telugu)'];
+  bool _isLoading = false;
+  String _selectedLangCode = 'en';
+
+  final Map<String, String> _languages = {
+    'en': 'English',
+    'hi': 'हिंदी (Hindi)',
+    'bn': 'বাংলা (Bengali)',
+    'te': 'తెలుగు (Telugu)',
+    'mr': 'मराठी (Marathi)',
+    'ta': 'தமிழ் (Tamil)',
+    'ur': 'اردو (Urdu)',
+    'gu': 'ગુજરાતી (Gujarati)',
+    'kn': 'ಕನ್ನಡ (Kannada)',
+    'or': 'ଓଡ଼ିଆ (Odia)',
+    'ml': 'മലയാളം (Malayalam)',
+    'pa': 'ਪੰਜਾਬੀ (Punjabi)',
+    'as': 'অসমীয়া (Assamese)',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    // Check if already logged in after build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final auth = context.read<AuthProvider>();
+      if (auth.user != null) {
+        _navigateBasedOnRole(auth);
+      }
+    });
+  }
+
+  void _navigateBasedOnRole(AuthProvider auth) {
+    if (auth.isLeader) {
+      Navigator.pushReplacementNamed(context, AppRoutes.leaderDashboard);
+    } else {
+      Navigator.pushReplacementNamed(context, AppRoutes.memberDashboard);
+    }
+  }
+
+  Future<void> _handleLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    if (email.isEmpty || password.isEmpty) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+      
+      if (response.user != null && mounted) {
+        // Wait a bit for profile to load in AuthProvider
+        await Future.delayed(const Duration(milliseconds: 800));
+        if (!mounted) return;
+        final auth = context.read<AuthProvider>();
+        _navigateBasedOnRole(auth);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.translations[_selectedLangCode] ?? AppLocalizations.translations['en']!;
+
     return Scaffold(
       backgroundColor: const Color(0xFFFCF9F2),
       body: SafeArea(
@@ -41,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Welcome to Setu',
+                t['welcome'] ?? 'Welcome to Setu',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   fontSize: 28,
@@ -70,19 +144,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: _selectedLanguage,
+                    value: _selectedLangCode,
                     isExpanded: true,
                     icon: const Icon(Icons.expand_more, size: 20),
-                    items: _languages.map((String lang) {
+                    items: _languages.entries.map((entry) {
                       return DropdownMenuItem<String>(
-                        value: lang,
-                        child: Text(lang, style: GoogleFonts.inter(fontSize: 14)),
+                        value: entry.key,
+                        child: Text(entry.value, style: GoogleFonts.inter(fontSize: 14)),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
                       if (newValue != null) {
                         setState(() {
-                          _selectedLanguage = newValue;
+                          _selectedLangCode = newValue;
                         });
                       }
                     },
@@ -95,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: 'Email or Phone Number',
+                  hintText: 'Email Address',
                   hintStyle: GoogleFonts.inter(color: Colors.grey[400]),
                   filled: true,
                   fillColor: Colors.white,
@@ -120,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  hintText: 'Password',
+                  hintText: t['password'] ?? 'Password',
                   hintStyle: GoogleFonts.inter(color: Colors.grey[400]),
                   filled: true,
                   fillColor: Colors.white,
@@ -142,10 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
               
               // Login Button
               ElevatedButton(
-                onPressed: () {
-                  // TODO: Integrate Supabase Auth
-                  Navigator.pushReplacementNamed(context, AppRoutes.memberDashboard);
-                },
+                onPressed: _isLoading ? null : _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF306E46),
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -154,14 +225,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   elevation: 0,
                 ),
-                child: Text(
-                  'Login to Dashboard',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
+                child: _isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      )
+                    : Text(
+                        t['login'] ?? 'Login',
+                        style: GoogleFonts.inter(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ],
           ),

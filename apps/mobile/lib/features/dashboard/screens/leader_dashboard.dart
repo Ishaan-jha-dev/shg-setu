@@ -4,23 +4,23 @@ import 'package:provider/provider.dart';
 import '../../../providers/auth_provider.dart';
 import '../../../providers/shg_provider.dart';
 import '../../../core/routes.dart';
-import '../../skills/screens/skills_screen.dart';
-import '../../loans/screens/loan_request_screen.dart';
+import '../../meetings/screens/meeting_attendance.dart';
+import '../../loans/screens/loan_approvals.dart';
 
-class MemberDashboard extends StatefulWidget {
-  const MemberDashboard({super.key});
+class LeaderDashboard extends StatefulWidget {
+  const LeaderDashboard({super.key});
 
   @override
-  State<MemberDashboard> createState() => _MemberDashboardState();
+  State<LeaderDashboard> createState() => _LeaderDashboardState();
 }
 
-class _MemberDashboardState extends State<MemberDashboard> {
+class _LeaderDashboardState extends State<LeaderDashboard> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const _HomeTab(),
-    const SkillsScreen(),
-    const LoanRequestScreen(),
+    const _LeaderHomeTab(),
+    const MeetingAttendanceScreen(),
+    const LoanApprovalsScreen(),
   ];
 
   @override
@@ -50,16 +50,16 @@ class _MemberDashboardState extends State<MemberDashboard> {
         },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.menu_book), label: 'Skills'),
-          NavigationDestination(icon: Icon(Icons.account_balance_wallet), label: 'Loans'),
+          NavigationDestination(icon: Icon(Icons.group), label: 'Meetings'),
+          NavigationDestination(icon: Icon(Icons.check_circle), label: 'Approvals'),
         ],
       ),
     );
   }
 }
 
-class _HomeTab extends StatelessWidget {
-  const _HomeTab();
+class _LeaderHomeTab extends StatelessWidget {
+  const _LeaderHomeTab();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _HomeTab extends StatelessWidget {
         }
 
         final profile = auth.memberProfile;
-        final fullName = profile?['profiles']?['full_name'] ?? 'Member';
+        final fullName = profile?['profiles']?['full_name'] ?? 'Leader';
         final shgDetails = shg.shgDetails;
         final shgName = shgDetails?['name'] ?? 'My SHG';
         final balance = shg.groupSavingsBalance;
@@ -94,7 +94,7 @@ class _HomeTab extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        shgName,
+                        '$shgName (Leader)',
                         style: GoogleFonts.inter(
                           fontSize: 14,
                           color: const Color(0xFF306E46),
@@ -141,7 +141,7 @@ class _HomeTab extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Group Savings Pool',
+                          'Total Group Savings',
                           style: GoogleFonts.inter(color: Colors.white70, fontSize: 14),
                         ),
                         const Icon(Icons.account_balance, color: Colors.white70, size: 20),
@@ -156,19 +156,6 @@ class _HomeTab extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Formation Date', style: GoogleFonts.inter(color: Colors.white70, fontSize: 12)),
-                            Text(shgDetails?['formation_date'] ?? 'N/A', style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.w600)),
-                          ],
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
